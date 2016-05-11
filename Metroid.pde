@@ -11,6 +11,7 @@ void setup() {
 }
 int page=1;
 void draw() {
+  loadImages();
   noCursor();
   if (page==1) {
     map1();

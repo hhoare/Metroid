@@ -15,6 +15,7 @@ BLACK b3 = new BLACK(130, 90, .25);
 
 PORTAL p1 = new PORTAL(400, 350, 2);
 PORTAL p2 = new PORTAL(400, 350, 3);
+
 void map1() {
   background(255);
   if (pause==0) {
@@ -33,7 +34,7 @@ void map1() {
 
   bordersAndCamera();
 
-  scenerymap1();
+  //scenerymap1();
 
   jump = 1;//1 line of code. falling jump fix
   c0.update();
@@ -44,7 +45,7 @@ void map1() {
 
   //guy
   fill(#FF0000);
-  rect(gx-5-cameraX, gy, 10, -30);
+  image(one, gx-5-cameraX, gy, 32*3, -48*2);
   p1.update();
 }
 void scenerymap1() {
