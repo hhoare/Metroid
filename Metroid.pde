@@ -1,0 +1,64 @@
+float gx=40, gy=350, gvy;
+int goRight, goLeft, jump;
+float cameraX;
+int mapWidth=600;
+
+int pause=0;
+void setup() {
+  size(400, 400);
+  frameRate(30);
+  noStroke();
+}
+int page=1;
+void draw() {
+  noCursor();
+  if (page==1) {
+    map1();
+  }
+  if (page==2) {
+    map2();
+  }
+}
+void guymotion() {  
+  if (goRight == 1) {
+    gx += 5;
+  }
+
+  if (goLeft == 1) {
+    gx -=5;
+  }
+  gvy+=1;
+  gy+=gvy;
+}
+void keyPressed() {
+  if (jump == 0 && keyCode == UP || key == 'w') {
+    jump = 1;
+    gvy = -14;
+  }
+  if (keyCode == RIGHT ||  key == 'd') {
+    goRight = 1;
+  }
+  if (keyCode == LEFT||  key == 'a') {
+    goLeft= 1;
+  }
+  if (key == '1') {
+    page =1;
+    gx=0;
+    gy=350;
+    cameraX=0;
+  }
+  if (key == '2') {
+    page =2;
+    gx=0;
+    gy=350;
+    cameraX=0;
+  }
+}
+void keyReleased() {
+  if (keyCode == RIGHT||  key == 'd') {
+    goRight = 0;
+  }
+  if (keyCode == LEFT||  key == 'a') {
+    goLeft= 0;
+  }
+}
