@@ -5,7 +5,7 @@ int mapWidth=600;
 
 int pause=0;
 void setup() {
-  size(400, 400);
+  size(640, 480);
   frameRate(30);
   noStroke();
 }
