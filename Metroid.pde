@@ -1,5 +1,8 @@
 float gx=40, gy=350, gvy;
 int goRight, goLeft, jump;
+
+int r, l;
+
 float cameraX;
 int mapWidth=600;
 
@@ -13,12 +16,9 @@ int page=1;
 void draw() {
   loadImages();
   noCursor();
-  if (page==1) {
-    map1();
-  }
-  if (page==2) {
-    map2();
-  }
+
+
+
 }
 void guymotion() {  
   if (goRight == 1) {
