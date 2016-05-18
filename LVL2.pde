@@ -29,7 +29,7 @@ void map2() {
   c3.update();
   //guy
   fill(#FF0000);
-  rect(gx-5-cameraX, gy, 10, -30);
+ // rect(gx-5-cameraX, gy, 10, -30);
   p2.update();
 }
 void scenerymap2() {

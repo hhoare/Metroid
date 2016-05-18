@@ -5,6 +5,7 @@ void gameplay() {
   if (page==2) {
     map2();
   }
-
+//stroke(1);
+//rect(gx-5-cameraX, gy, 48, -48);
   drawSamus();
 }

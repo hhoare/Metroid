@@ -41,16 +41,127 @@ void loadImages() {
 
   right10= new PImage(48, 48, ARGB);
   right10.copy(q, 0+48+48+48+48+48+48+48+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+
+
+  left10= new PImage(48, 48, ARGB);
+  left10.copy(q, 0, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left9= new PImage(48, 48, ARGB);
+  left9.copy(q, 0+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left8= new PImage(48, 48, ARGB);
+  left8.copy(q, 0+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left7= new PImage(48, 48, ARGB);
+  left7.copy(q, 0+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left6= new PImage(48, 48, ARGB);
+  left6.copy(q, 0+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left5= new PImage(48, 48, ARGB);
+  left5.copy(q, 0+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left4= new PImage(48, 48, ARGB);
+  left4.copy(q, 0+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left3= new PImage(48, 48, ARGB);
+  left3.copy(q, 0+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left2= new PImage(48, 48, ARGB);
+  left2.copy(q, 0+48+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left1= new PImage(48, 48, ARGB);
+  left1.copy(q, 0+48+48+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left= new PImage(48, 48, ARGB);
+  left.copy(q, 0+48+48+48+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
 }
 
 
 
+float types;
+
+
+void drawSamus() {
 
 
 
-void drawSamus(){
+  if (goRight == 1) {
+
+    if (types < 0) {
+      types = 1;
+    }
+
+    if (((int)types) == 11) {
+      types = 1;
+    }
+    if ( ((int)types) == 0) {
+      image(right, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 1) {
+      image(right1, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 2) {
+      image(right2, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 3) {
+      image(right3, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 4) {
+      image(right4, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 5) {
+      image(right5, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 6) {
+      image(right6, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 7) {
+      image(right7, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 8) {
+      image(right8, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 9) {
+      image(right9, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 10) {
+      image(right10, gx-5-cameraX, gy, 48, -48);
+    }
+  } else if (goLeft == 1) {
+    if (types > 0) {
+      types = -1;
+    }
 
 
+    if (((int)types) == -11) {
+      types = -1;
+    }
+    if ( ((int)types) == -1) {
+      image(left10, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -2) {
+      image(left9, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -3) {
+      image(left8, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -4) {
+      image(left7, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -5) {
+      image(left6, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -6) {
+      image(left5, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -7) {
+      image(left4, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -8) {
+      image(left3, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -9) {
+      image(left2, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -10) {
+      image(left1, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 0) {
+      image(left, gx-5-cameraX, gy, 48, -48);
+    }
+  } else {
+  //  println(types + "  " + random(100));
+    if (types < 0) {
+      image(left, gx-5-cameraX, gy, 48, -48);
+    }
+    if (types >= 0) {
+      image(right, gx-5-cameraX, gy, 48, -48);
+    }
 
-
+    if (types == 0) {
+     // image(right, gx-5-cameraX, gy, 48, -48);
+    }
+  }
 }

@@ -7,7 +7,9 @@ class CLOUD {
     t=_t;
   }
   void update() {
-    if (gx+5 > x && gx - 5 < x + w   && gy > y && gy<=y + gvy) {
+  //  println(gx+5);
+    
+    if (gx+18 > x && gx +18 < x + w   && gy > y && gy<=y + gvy) {
       gy = y;
       jump = 0;
       gvy = 0;

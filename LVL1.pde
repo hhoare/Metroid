@@ -45,7 +45,7 @@ void map1() {
 
   //guy
   fill(#FF0000);
-  image(one, gx-5-cameraX, gy, 48, -48);
+  //image(one, gx-5-cameraX, gy, 48, -48);
   p1.update();
 }
 void scenerymap1() {
