@@ -172,17 +172,24 @@ void drawSamus() {
 
 
   ///////////////////BULLET STUFF BELOW HERE
-  fill(255);
-  stroke(1);
-  //ellipse(gx+30-cameraX, gy-27, 4, 4);
-  image(b,gx+33-cameraX, gy-30, 8, 8);
+  if (bgo != 0) {
+
+    bx+=15*bgo;
+
+    if (bx-cameraX > width + 10 || bx - cameraX < -10) {
+      bgo = 0;
+      bx = -9999;
+    }
+
+
+    //ellipse(gx+30-cameraX, gy-27, 4, 4);
+    image(b, bx - cameraX, by, 8, 8);
+  }
 }
 
-
-void bullet(){
-
-
+float bx, by;
+int bgo;
 
 
-
+void bullet() {
 }
