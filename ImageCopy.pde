@@ -2,6 +2,7 @@ PImage one;
 
 PImage right, right1, right2, right3, right4, right5, right6, right7, right8, right9, right10;
 PImage left, left1, left2, left3, left4, left5, left6, left7, left8, left9, left10;
+PImage b;
 
 
 void loadImages() {
@@ -76,6 +77,10 @@ void loadImages() {
 
   left= new PImage(48, 48, ARGB);
   left.copy(q, 0+48+48+48+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+
+  b= new PImage(16, 16, ARGB);
+  b.copy(q, 0, 48+48+48, 16, 16, 0, 0, 16, 16);
 }
 
 
@@ -152,7 +157,7 @@ void drawSamus() {
       image(left, gx-5-cameraX, gy, 48, -48);
     }
   } else {
-  //  println(types + "  " + random(100));
+    //  println(types + "  " + random(100));
     if (types < 0) {
       image(left, gx-5-cameraX, gy, 48, -48);
     }
@@ -161,7 +166,23 @@ void drawSamus() {
     }
 
     if (types == 0) {
-     // image(right, gx-5-cameraX, gy, 48, -48);
+      // image(right, gx-5-cameraX, gy, 48, -48);
     }
   }
+
+
+  ///////////////////BULLET STUFF BELOW HERE
+  fill(255);
+  stroke(1);
+  //ellipse(gx+30-cameraX, gy-27, 4, 4);
+  image(b,gx+33-cameraX, gy-30, 8, 8);
+}
+
+
+void bullet(){
+
+
+
+
+
 }

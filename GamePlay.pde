@@ -8,4 +8,6 @@ void gameplay() {
 //stroke(1);
 //rect(gx-5-cameraX, gy, 48, -48);
   drawSamus();
+   // image(b,200, 200, 16, 16);
+
 }
