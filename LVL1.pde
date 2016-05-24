@@ -1,6 +1,6 @@
 CLOUD c0 = new CLOUD(0, 350, 225, 1); // ground
 CLOUD c1 = new CLOUD(50, 300, 100, 2);
-CLOUD c2 = new CLOUD(200, 250, 70, 2);
+CLOUD c2 = new CLOUD(200, 250, 100, 2);
 CLOUD c3 = new CLOUD(350, 350, 250, 1);//ground
 
 TREE t1 = new TREE(300, 262, #00aa00, #c6aa90, .4, 2);
