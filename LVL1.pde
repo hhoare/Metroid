@@ -18,6 +18,7 @@ PORTAL p2 = new PORTAL(400, 350, 3);
 
 void map1() {
   background(255);
+  space();
   if (pause==0) {
     guymotion();
   }
