@@ -11,7 +11,7 @@ void bordersAndCamera() {
   //camera code for a 300 by 300 canvas and a 37.5 pixel velocity
   //horizontal camera 
   if (gx > cameraX + 250 && cameraX < (mapWidth - width)) {
-    println(true);
+  //  println(true);
     cameraX = gx - 250;
   }
 
