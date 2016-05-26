@@ -89,6 +89,19 @@ float types;
 
 
 void drawSamus() {
+  if (bgo != 0) {
+
+    bx+=15*bgo;
+
+    if (bx-cameraX > width + 10 || bx - cameraX < -10) {
+      bgo = 0;
+      bx = -9999;
+    }
+
+
+    //ellipse(gx+30-cameraX, gy-27, 4, 4);
+    image(b, bx - cameraX, by, 8, 8);
+  }
 
 
 
@@ -172,19 +185,6 @@ void drawSamus() {
 
 
   ///////////////////BULLET STUFF BELOW HERE
-  if (bgo != 0) {
-
-    bx+=15*bgo;
-
-    if (bx-cameraX > width + 10 || bx - cameraX < -10) {
-      bgo = 0;
-      bx = -9999;
-    }
-
-
-    //ellipse(gx+30-cameraX, gy-27, 4, 4);
-    image(b, bx - cameraX, by, 8, 8);
-  }
 }
 
 float bx, by;

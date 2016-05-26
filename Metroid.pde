@@ -1,10 +1,10 @@
-float gx=40, gy=350, gvy;
+float gx=50, gy=300, gvy;
 int goRight, goLeft, jump;
 
 int r, l;
 
 float cameraX;
-int mapWidth=600;
+int mapWidth=1000;
 
 int pause=0;
 void setup() {
@@ -23,7 +23,7 @@ void guymotion() {
   if (goRight == 1) {
     gx += 5;
     if (jump == 1) {
-      types = 6;
+      types = 4;
     } else {
       types+=.5;
     }
