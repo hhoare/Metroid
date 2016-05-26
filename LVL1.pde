@@ -30,8 +30,14 @@ BLACK b3 = new BLACK(130, 90, .25);
 PORTAL p1 = new PORTAL(400, 350, 2);
 PORTAL p2 = new PORTAL(400, 350, 3);
 
+
+BG bg1 = new BG(0, 0);
+BG bg2 = new BG(2, 0);
+
+
 void map1() {
-  background(255);
+  background(#081246); //darkest blue
+
   space();
   if (pause==0) {
     guymotion();
@@ -50,7 +56,8 @@ void map1() {
   bordersAndCamera();
 
   //scenerymap1();
-
+  bg1.update();
+  bg2.update();
   jump = 1;//1 line of code. falling jump fix
   // c0.update();
   c1.update();
@@ -68,6 +75,8 @@ void map1() {
   c13.update();
   c14.update();
   c15.update();
+
+
 
 
   //println(cameraX + 250, gx);
