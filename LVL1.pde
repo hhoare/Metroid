@@ -13,7 +13,7 @@ CLOUD c11 = new CLOUD(475+75+75+75, 400, 100, 2, 0);
 CLOUD c12 = new CLOUD(475+75+75+75+75, 400, 100, 2, 0);
 CLOUD c13 = new CLOUD(475+75+75+75+75+75, 400, 100, 2, 0);
 CLOUD c14 = new CLOUD(475+75+75+75+75+75+75, 400, 100, 2, 0);
-CLOUD c15 = new CLOUD(475+75+75+75+75+75+75+75, 400, 100, 2, 0);
+CLOUD c15 = new CLOUD(475+75+75+75+75+75+75+75, 400, 1000, 2, 0);
 
 
 
@@ -33,6 +33,7 @@ PORTAL p2 = new PORTAL(400, 350, 3);
 
 BG bg1 = new BG(0, 0);
 BG bg2 = new BG(2, 0);
+BG bg3 = new BG(4, 0);
 
 
 void map1() {
@@ -58,6 +59,7 @@ void map1() {
   //scenerymap1();
   bg1.update();
   bg2.update();
+  bg3.update();
   jump = 1;//1 line of code. falling jump fix
   // c0.update();
   c1.update();
