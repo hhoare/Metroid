@@ -1,5 +1,6 @@
 void gameplay() {
   if (page==1) {
+    mapWidth=1500;
     map1();
   }
   if (page==2) {

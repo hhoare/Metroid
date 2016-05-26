@@ -7,6 +7,14 @@ CLOUD c5 = new CLOUD(250, 400, 100, 2, 0);
 CLOUD c6 = new CLOUD(325, 400, 100, 2, 0);
 CLOUD c7 = new CLOUD(400, 400, 100, 2, 0);
 CLOUD c8 = new CLOUD(475, 400, 100, 2, 0);
+CLOUD c9 = new CLOUD(475+75, 400, 100, 2, 0);
+CLOUD c10 = new CLOUD(475+75+75, 400, 100, 2, 0);
+CLOUD c11 = new CLOUD(475+75+75+75, 400, 100, 2, 0);
+CLOUD c12 = new CLOUD(475+75+75+75+75, 400, 100, 2, 0);
+CLOUD c13 = new CLOUD(475+75+75+75+75+75, 400, 100, 2, 0);
+CLOUD c14 = new CLOUD(475+75+75+75+75+75+75, 400, 100, 2, 0);
+CLOUD c15 = new CLOUD(475+75+75+75+75+75+75+75, 400, 100, 2, 0);
+
 
 
 TREE t1 = new TREE(300, 262, #00aa00, #c6aa90, .4, 2);
@@ -53,7 +61,15 @@ void map1() {
   c6.update();
   c7.update();
   c8.update();
-  
+  c9.update();
+  c10.update();
+  c11.update();
+  c12.update();
+  c13.update();
+  c14.update();
+  c15.update();
+
+
   //println(cameraX + 250, gx);
 
 

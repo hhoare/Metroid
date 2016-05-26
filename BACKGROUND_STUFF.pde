@@ -51,103 +51,116 @@ class BLACK {
   }
 }
 
-/////////////////////Space Background
 
-void space(){
-  background(#081246); //darkest blue
-  noStroke();
-  fill(#05145F); //darker blue
-  ellipse(20-cameraX,230,110,200);
-  ellipse(100-cameraX,210,150,150);
-  ellipse(210-cameraX,230,125,130);
-  ellipse(300-cameraX,270,140,135);
-  ellipse(395-cameraX,290,85,100);
-  ellipse(460-cameraX,290,100,120);
-  ellipse(520-cameraX,290,110,100);
-  ellipse(620-cameraX,290,150,150);
-  rect(0-cameraX,260,640,220);
-  fill(#0D3481); //dark blue
-  ellipse(10-cameraX,400,90,200);
-  ellipse(100-cameraX,360,140,150);
-  ellipse(180-cameraX,380,90,80);
-  ellipse(240-cameraX,410,80,80);
-  ellipse(350-cameraX,400,170,160);
-  ellipse(470-cameraX,420,120,125);
-  ellipse(600-cameraX,400,220,200);
-  rect(0-cameraX,400,640,80);
-  
-  fill(#ffffff,100); //stars
-  noStroke();
-  ellipse(15-cameraX,200,3,3);
-  ellipse(25-cameraX,160,2.5,2.5);
-  ellipse(35-cameraX,158,2.5,2.5);
-  ellipse(50-cameraX,30,2.5,2.5);
-  ellipse(30-cameraX,400,2.5,2.5);
-  ellipse(100-cameraX,180,2.5,2.5);
-  ellipse(500-cameraX,475,2.5,2.5);
-  ellipse(635-cameraX,430,2.5,2.5);
-  ellipse(600-cameraX,100,3,3);
-  ellipse(480-cameraX,80,3,3);
-  ellipse(470-cameraX,60,3,3);
-  ellipse(350-cameraX,60,3,3);
-  ellipse(340-cameraX,360,3,3);
-  ellipse(320-cameraX,300,3,3);
-  ellipse(250-cameraX,220,2.5,2.5);
-  ellipse(200-cameraX,450,3,3);
-  fill(#ffffff,50);
-  ellipse(20-cameraX,430,4,4);
-  ellipse(320-cameraX,240,4,4);
-  ellipse(330-cameraX,230,4,4);
-  ellipse(360-cameraX,280,3,3);
-  ellipse(100-cameraX,90,3,3);
-  ellipse(125-cameraX,80,3,3);
-  ellipse(620-cameraX,180,3,3);
-  ellipse(570-cameraX,160,3,3);
-  ellipse(550-cameraX,260,4,4);
-  ellipse(520-cameraX,380,4,4);
-  fill(#ffffff,20);
-  ellipse(80-cameraX,360,4,4);
-  ellipse(50-cameraX,280,4,4);
-  ellipse(70-cameraX,20,4,4);
-  ellipse(110-cameraX,50,4,4);
-  ellipse(170-cameraX,250,4,4);
-  ellipse(190-cameraX,190,4,4);
-  ellipse(230-cameraX,90,4,4);
-  ellipse(300-cameraX,120,4,4);
-  ellipse(300-cameraX,420,4,4);
-  ellipse(400-cameraX,30,4,4);
-  ellipse(390-cameraX,460,4,4);
-  ellipse(430-cameraX,450,4,4);
-  ellipse(500-cameraX,10,4,4);
-  ellipse(550-cameraX,30,4,4);
-  ellipse(600-cameraX,410,4,4);
-  ellipse(625-cameraX,360,4,4);
-  ellipse(500-cameraX,320,4,4);
-  ellipse(450-cameraX,300,4,4);
-  ellipse(400-cameraX,180,4,4);
-  
-  fill(#381D64,250);
-  noStroke();
-  ellipse(490-cameraX,123,85,85);
-  fill(#081246);
-  ellipse(475-cameraX,120,68,65);
-  stars();
+class BG {
+  int x, type;
 
+  BG(int _x, int _type) {
+    x = _x;
+    types = _type;
+
+
+    if (type == 1) {
+      background(#081246); //darkest blue
+      noStroke();
+      fill(#05145F); //darker blue
+      ellipse(20*x-cameraX, 230, 110, 200);
+      ellipse(100*x-cameraX, 210, 150, 150);
+      ellipse(210*x-cameraX, 230, 125, 130);
+      ellipse(300*x-cameraX, 270, 140, 135);
+      ellipse(395*x-cameraX, 290, 85, 100);
+      ellipse(460*x-cameraX, 290, 100, 120);
+      ellipse(520*x-cameraX, 290, 110, 100);
+      ellipse(620*x-cameraX, 290, 150, 150);
+      rect(0+(640*x)-cameraX, 260, 640, 220);
+      fill(#0D3481); //dark blue
+      ellipse(10*x-cameraX, 400, 90, 200);
+      ellipse(100*x-cameraX, 360, 140, 150);
+      ellipse(180*x-cameraX, 380, 90, 80);
+      ellipse(240*x-cameraX, 410, 80, 80);
+      ellipse(350*x-cameraX, 400, 170, 160);
+      ellipse(470*x-cameraX, 420, 120, 125);
+      ellipse(600*x-cameraX, 400, 220, 200);
+      rect(0+(640*x)-cameraX, 400, 640, 80);
+
+      fill(#ffffff, 100); //stars
+      noStroke();
+      ellipse(15*x-cameraX, 200, 3, 3);
+      ellipse(25*x-cameraX, 160, 2.5, 2.5);
+      ellipse(35*x-cameraX, 158, 2.5, 2.5);
+      ellipse(50*x-cameraX, 30, 2.5, 2.5);
+      ellipse(30*x-cameraX, 400, 2.5, 2.5);
+      ellipse(100*x-cameraX, 180, 2.5, 2.5);
+      ellipse(500*x-cameraX, 475, 2.5, 2.5);
+      ellipse(635*x-cameraX, 430, 2.5, 2.5);
+      ellipse(600*x-cameraX, 100, 3, 3);
+      ellipse(480*x-cameraX, 80, 3, 3);
+      ellipse(470*x-cameraX, 60, 3, 3);
+      ellipse(350*x-cameraX, 60, 3, 3);
+      ellipse(340*x-cameraX, 360, 3, 3);
+      ellipse(320*x-cameraX, 300, 3, 3);
+      ellipse(250*x-cameraX, 220, 2.5, 2.5);
+      ellipse(200*x-cameraX, 450, 3, 3);
+      fill(#ffffff, 50);
+      ellipse(20*x-cameraX, 430, 4, 4);
+      ellipse(320*x-cameraX, 240, 4, 4);
+      ellipse(330*x-cameraX, 230, 4, 4);
+      ellipse(360*x-cameraX, 280, 3, 3);
+      ellipse(100*x-cameraX, 90, 3, 3);
+      ellipse(125*x-cameraX, 80, 3, 3);
+      ellipse(620*x-cameraX, 180, 3, 3);
+      ellipse(570*x-cameraX, 160, 3, 3);
+      ellipse(550*x-cameraX, 260, 4, 4);
+      ellipse(520*x-cameraX, 380, 4, 4);
+      fill(#ffffff, 20);
+      ellipse(80*x-cameraX, 360, 4, 4);
+      ellipse(50*x-cameraX, 280, 4, 4);
+      ellipse(70*x-cameraX, 20, 4, 4);
+      ellipse(110*x-cameraX, 50, 4, 4);
+      ellipse(170*x-cameraX, 250, 4, 4);
+      ellipse(190*x-cameraX, 190, 4, 4);
+      ellipse(230*x-cameraX, 90, 4, 4);
+      ellipse(300*x-cameraX, 120, 4, 4);
+      ellipse(300*x-cameraX, 420, 4, 4);
+      ellipse(400*x-cameraX, 30, 4, 4);
+      ellipse(390*x-cameraX, 460, 4, 4);
+      ellipse(430*x-cameraX, 450, 4, 4);
+      ellipse(500*x-cameraX, 10, 4, 4);
+      ellipse(550*x-cameraX, 30, 4, 4);
+      ellipse(600*x-cameraX, 410, 4, 4);
+      ellipse(625*x-cameraX, 360, 4, 4);
+      ellipse(500*x-cameraX, 320, 4, 4);
+      ellipse(450*x-cameraX, 300, 4, 4);
+      ellipse(400*x-cameraX, 180, 4, 4);
+
+      fill(#381D64, 250);
+      noStroke();
+      ellipse(490*x-cameraX, 123, 85, 85);
+      fill(#081246);
+      ellipse(475*x-cameraX, 120, 68, 65);
+
+
+      fill(#ffffff, FadeX);
+      ellipse(60*x-cameraX, 120, 3, 3);
+      ellipse(140*x-cameraX, 420, 4, 4);
+      ellipse(340*x-cameraX, 20, 3, 3);
+      ellipse(400*x-cameraX, 220, 4, 4);
+      ellipse(600*x-cameraX, 310, 4, 4);
+      ellipse(220*x-cameraX, 40, 2, 2);
+      ellipse(260*x-cameraX, 320, 2, 2);
+      ellipse(420*x-cameraX, 400, 2, 2);
+    }
+  }
+  void updtate() {
+    FadeX=FadeX-5;
+    if (FadeX<=0) {
+      FadeX = 255;
+    }
+  }
 }
 
+
+/////////////////////Space Background
 int FadeX = 255;
-void stars(){
-  FadeX=FadeX-10;
-  if (FadeX<=0){
-    FadeX = 255;
-  }
-  fill(#ffffff, FadeX);
-  ellipse(60-cameraX,120,3,3);
-  ellipse(140-cameraX,420,4,4);
-  ellipse(340-cameraX,20,3,3);
-  ellipse(400-cameraX,220,4,4);
-  ellipse(600-cameraX,310,4,4);
-  ellipse(220-cameraX,40,2,2);
-  ellipse(260-cameraX,320,2,2);
-  ellipse(420-cameraX,400,2,2); 
+void space() {
 }

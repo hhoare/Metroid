@@ -4,7 +4,7 @@ int goRight, goLeft, jump;
 int r, l;
 
 float cameraX;
-int mapWidth=1000;
+int mapWidth=0;
 
 int pause=0;
 void setup() {
