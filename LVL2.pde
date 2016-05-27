@@ -17,7 +17,7 @@ void map2() {
       pause=3;
     }
   }
-  if (gy>450) {
+  if (gy>500) {
     ouch();
   }
   bordersAndCamera();

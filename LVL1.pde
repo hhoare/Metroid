@@ -1,19 +1,19 @@
 //CLOUD c0 = new CLOUD(0, 350, 225, 1); // ground
 CLOUD c1 = new CLOUD(25, 400, 100, 2, 0);
-CLOUD c2 = new CLOUD(200, 250, 100, 2, 0);
-CLOUD c3 = new CLOUD(100, 400, 100, 2, 0);
-CLOUD c4 = new CLOUD(175, 400, 100, 2, 0);
-CLOUD c5 = new CLOUD(250, 400, 100, 2, 0);
-CLOUD c6 = new CLOUD(325, 400, 100, 2, 0);
-CLOUD c7 = new CLOUD(400, 400, 100, 2, 0);
-CLOUD c8 = new CLOUD(475, 400, 100, 2, 0);
+CLOUD c2 = new CLOUD(200, 320, 100, 2, 0);
+CLOUD c3 = new CLOUD(350, 400, 100, 2, 0);
+CLOUD c4 = new CLOUD(500, 340, 100, 2, 0);
+CLOUD c5 = new CLOUD(650, 260, 100, 2, 0);
+CLOUD c6 = new CLOUD(650, 260-80, 100, 2, 0);
+CLOUD c7 = new CLOUD(800, 470, 100, 2, 0);
+CLOUD c8 = new CLOUD(950, 390, 100, 2, 0);
 CLOUD c9 = new CLOUD(475+75, 400, 100, 2, 0);
 CLOUD c10 = new CLOUD(475+75+75, 400, 100, 2, 0);
 CLOUD c11 = new CLOUD(475+75+75+75, 400, 100, 2, 0);
 CLOUD c12 = new CLOUD(475+75+75+75+75, 400, 100, 2, 0);
 CLOUD c13 = new CLOUD(475+75+75+75+75+75, 400, 100, 2, 0);
 CLOUD c14 = new CLOUD(475+75+75+75+75+75+75, 400, 100, 2, 0);
-CLOUD c15 = new CLOUD(475+75+75+75+75+75+75+75, 400, 1000, 2, 0);
+CLOUD c15 = new CLOUD(475+75+75+75+75+75+75+75, 400, 100, 2, 0);
 
 
 
@@ -50,7 +50,7 @@ void map1() {
       pause=3;
     }
   }
-  if (gy>450) {
+  if (gy>500) {
     ouch();
   }
 
@@ -65,20 +65,25 @@ void map1() {
   c1.update();
   c2.update();
   c3.update();
+
   c4.update();
+
   c5.update();
   c6.update();
   c7.update();
   c8.update();
-  c9.update();
-  c10.update();
-  c11.update();
-  c12.update();
-  c13.update();
-  c14.update();
-  c15.update();
+  /*
 
-
+   c9.update();
+   
+   c10.update();
+   c11.update();
+   c12.update();
+   c13.update();
+   c14.update();
+   c15.update();
+   
+   */
 
 
   //println(cameraX + 250, gx);
