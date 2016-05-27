@@ -57,16 +57,16 @@ class BG {
 
   BG(int _x, int _type) {
     x = _x;
-    types = _type;
+    type = _type;
   }
   void update() {
-    FadeX=FadeX-5;
+    FadeX=FadeX-2;
     if (FadeX<=0) {
       FadeX = 255;
     }
 
 
-  //  if (type == 1) {
+    if (type == 1) {
       noStroke();
       fill(#05145F); //darker blue
       ellipse(20+(300*x)-cameraX, 230, 110, 200);
@@ -154,7 +154,7 @@ class BG {
       ellipse(220+(300*x)-cameraX, 40, 2, 2);
       ellipse(260+(300*x)-cameraX, 320, 2, 2);
       ellipse(420+(300*x)-cameraX, 400, 2, 2);
-  //  }
+    }
   }
 }
 

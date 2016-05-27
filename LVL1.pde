@@ -31,9 +31,9 @@ PORTAL p1 = new PORTAL(400, 350, 2);
 PORTAL p2 = new PORTAL(400, 350, 3);
 
 
-BG bg1 = new BG(0, 0);
-BG bg2 = new BG(2, 0);
-BG bg3 = new BG(4, 0);
+BG bg1 = new BG(0, 1);
+BG bg2 = new BG(2, 1);
+BG bg3 = new BG(4, 1);
 
 
 void map1() {
