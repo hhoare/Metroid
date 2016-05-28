@@ -13,7 +13,7 @@ class PORTAL {
     }
     fill(128);
     ellipse(x-cameraX, y, 50, 10);
-    if (dist(gx, gy, x, y)<10) {
+    if (dist(gx+18, gy, x, y)<10) {
       pause=1; 
       gx=x;
     }

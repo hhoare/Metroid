@@ -1,19 +1,21 @@
 //CLOUD c0 = new CLOUD(0, 350, 225, 1); // ground
 CLOUD c1 = new CLOUD(25, 400, 100, 2, 0);
-CLOUD c2 = new CLOUD(200, 320, 100, 2, 0);
+CLOUD c2 = new CLOUD(200, 320, 100, 2, 1);
 CLOUD c3 = new CLOUD(350, 400, 100, 2, 0);
 CLOUD c4 = new CLOUD(500, 340, 100, 2, 0);
 CLOUD c5 = new CLOUD(650, 260, 100, 2, 0);
 CLOUD c6 = new CLOUD(650, 260-80, 100, 2, 0);
 CLOUD c7 = new CLOUD(800, 470, 100, 2, 0);
 CLOUD c8 = new CLOUD(950, 390, 100, 2, 0);
-CLOUD c9 = new CLOUD(475+75, 400, 100, 2, 0);
-CLOUD c10 = new CLOUD(475+75+75, 400, 100, 2, 0);
-CLOUD c11 = new CLOUD(475+75+75+75, 400, 100, 2, 0);
-CLOUD c12 = new CLOUD(475+75+75+75+75, 400, 100, 2, 0);
-CLOUD c13 = new CLOUD(475+75+75+75+75+75, 400, 100, 2, 0);
-CLOUD c14 = new CLOUD(475+75+75+75+75+75+75, 400, 100, 2, 0);
-CLOUD c15 = new CLOUD(475+75+75+75+75+75+75+75, 400, 100, 2, 0);
+CLOUD c9 = new CLOUD(1100, 310, 100, 2, 0);
+CLOUD c10 = new CLOUD(1260, 450, 100, 2, 0);
+
+
+CLOUD c11 = new CLOUD(475, 400, 100, 2, 0);
+CLOUD c12 = new CLOUD(475, 400, 100, 2, 0);
+CLOUD c13 = new CLOUD(475, 400, 100, 2, 0);
+CLOUD c14 = new CLOUD(475, 400, 100, 2, 0);
+CLOUD c15 = new CLOUD(475, 400, 100, 2, 0);
 
 
 
@@ -27,7 +29,7 @@ BLACK b1 = new BLACK(100, 40, .25);
 BLACK b2 = new BLACK(180, 60, .25);
 BLACK b3 = new BLACK(130, 90, .25);
 
-PORTAL p1 = new PORTAL(400, 350, 2);
+PORTAL p1 = new PORTAL(1300, 450, 2);
 PORTAL p2 = new PORTAL(400, 350, 3);
 
 
@@ -72,11 +74,9 @@ void map1() {
   c6.update();
   c7.update();
   c8.update();
+  c9.update();
+  c10.update();
   /*
-
-   c9.update();
-   
-   c10.update();
    c11.update();
    c12.update();
    c13.update();
@@ -92,8 +92,9 @@ void map1() {
 
   //guy
   fill(#FF0000);
+  //ellipse(gx+18,gy,5,5);
   //image(one, gx-5-cameraX, gy, 48, -48);
-  //  p1.update();
+    p1.update();
 }
 void scenerymap1() {
   b1.update();

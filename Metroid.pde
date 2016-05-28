@@ -1,3 +1,4 @@
+
 float gx=50, gy=300, gvy;
 int goRight, goLeft, jump;
 
@@ -31,7 +32,7 @@ void guymotion() {
 
   if (goLeft == 1) {
     gx -=5;
-        if (jump == 1) {
+    if (jump == 1) {
       types = -6;
     } else {
       types-=.5;
@@ -88,5 +89,13 @@ void keyReleased() {
   if (keyCode == LEFT||  key == 'a') {
     goLeft= 0;
     // types = 0;
+  }
+}
+
+
+void mousePressed() {
+  
+  if(page == 0){
+  page = 1;
   }
 }

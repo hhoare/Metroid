@@ -22,7 +22,14 @@ class CLOUD {
         jump = 0;
         gvy = 0;
       }
-
+/*
+      if (go == 1) {
+        y-=5;
+        if (y<=-20) {
+          y=500;
+        }
+      }
+*/
 
       //  fill(100);
       //   rect(x-cameraX, y, w, 5);
