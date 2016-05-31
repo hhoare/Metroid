@@ -13,7 +13,7 @@ void setup() {
   frameRate(30);
   noStroke();
 }
-int page=1;
+int page=0;
 void draw() {
   loadImages();
   gameplay();
@@ -70,15 +70,27 @@ void keyPressed() {
   }
   if (key == '1') {
     page =1;
-    gx=0;
-    gy=350;
+    gx=50;
+    gy=300;
     cameraX=0;
   }
   if (key == '2') {
     page =2;
-    gx=0;
-    gy=350;
+    pause = 0;
+    gx=50;
+    gy=50;
     cameraX=0;
+  }
+  if (key == '3') {
+    page =3;
+    pause = 0;
+    gx=50;
+    gy=50;
+    cameraX=0;
+  }
+  if (key == '4') {
+
+    page = 4;
   }
 }
 void keyReleased() {
@@ -94,8 +106,8 @@ void keyReleased() {
 
 
 void mousePressed() {
-  
-  if(page == 0){
-  page = 1;
+
+  if (page == 0) {
+    page = 1;
   }
 }

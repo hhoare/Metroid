@@ -11,11 +11,16 @@ CLOUD c9 = new CLOUD(1100, 310, 100, 2, 0);
 CLOUD c10 = new CLOUD(1260, 450, 100, 2, 0);
 
 
-CLOUD c11 = new CLOUD(475, 400, 100, 2, 0);
-CLOUD c12 = new CLOUD(475, 400, 100, 2, 0);
-CLOUD c13 = new CLOUD(475, 400, 100, 2, 0);
-CLOUD c14 = new CLOUD(475, 400, 100, 2, 0);
-CLOUD c15 = new CLOUD(475, 400, 100, 2, 0);
+
+
+
+COIN cn1 = new COIN (350, 385);
+COIN cn2 = new COIN (660, 260-100);
+COIN cn3 = new COIN (1100, 300);
+
+
+
+
 
 
 
@@ -25,12 +30,12 @@ TREE t2 = new TREE(350, 290, #008800, #86AA90, .5, 2);
 
 MOUNTAIN m1 = new MOUNTAIN(80, 240, .8);
 
-BLACK b1 = new BLACK(100, 40, .25);
-BLACK b2 = new BLACK(180, 60, .25);
-BLACK b3 = new BLACK(130, 90, .25);
+
 
 PORTAL p1 = new PORTAL(1300, 450, 2);
-PORTAL p2 = new PORTAL(400, 350, 3);
+PORTAL p2 = new PORTAL(1290, 450, 3);
+PORTAL p3 = new PORTAL(1285, 450, 4);
+
 
 
 BG bg1 = new BG(0, 1);
@@ -38,10 +43,38 @@ BG bg2 = new BG(2, 1);
 BG bg3 = new BG(4, 1);
 
 
+
+float scroll1 = .5;
+float scroll2 = .2;
+float scroll3 = .1;
+float scroll4 = .09;
+float scroll5 = .2;
+float scroll6 = .2;
+
+
+boo b1 = new boo(200, 400, 25, 1);
+boo b2 = new boo(500, 200, 25, 1);
+boo b3 = new boo(800, 250, 25, 1);
+boo b4 = new boo(1050, 300, 25, 2);
+
+boo b13 = new boo(300, 100, 25, 1);
+boo b14 = new boo(600, 300, 25, 2);
+boo b15 = new boo(900, 150, 25, 1);
+boo b16 = new boo(1150, 120, 25, 2);
+
+
+
+
+
+
+
+
+
+
+
 void map1() {
   background(#081246); //darkest blue
 
-  space();
   if (pause==0) {
     guymotion();
   }
@@ -58,10 +91,17 @@ void map1() {
 
   bordersAndCamera();
 
-  //scenerymap1();
   bg1.update();
   bg2.update();
   bg3.update();
+
+  fill(#381D64, 250);      /// MOON
+  noStroke();
+  ellipse(490-cameraX*scroll1, 123, 85, 85);
+  fill(#081246);
+  ellipse(475-cameraX*scroll1, 120, 68, 65);
+
+
   jump = 1;//1 line of code. falling jump fix
   // c0.update();
   c1.update();
@@ -84,7 +124,19 @@ void map1() {
    c15.update();
    
    */
+  b1.update();
+  b2.update();
+  b3.update();
+  b4.update();
+  b13.update();
+  b14.update();
+  b15.update();
+  b16.update();
 
+
+  cn1.update();
+  cn2.update();
+  cn3.update();
 
   //println(cameraX + 250, gx);
 
@@ -94,16 +146,5 @@ void map1() {
   fill(#FF0000);
   //ellipse(gx+18,gy,5,5);
   //image(one, gx-5-cameraX, gy, 48, -48);
-    p1.update();
-}
-void scenerymap1() {
-  b1.update();
-  b2.update();
-  b3.update();
-
-  t1.update();
-  t2.update();
-  t3.update();
-
-  m1.update();
+  p1.update();
 }
