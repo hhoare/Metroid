@@ -1,0 +1,2076 @@
+
+float gx=50, gy=300, gvy;
+int goRight, goLeft, jump;
+
+int r, l;
+
+float cameraX;
+int mapWidth=0;
+
+int pause=0;
+void setup() {
+  size(640, 480);
+  frameRate(30);
+  noStroke();
+}
+int page=0;
+void draw() {
+  loadImages();
+  gameplay();
+  noCursor();
+  // ellipse(gx+18,gy,5,5);
+}
+void guymotion() {  
+  if (goRight == 1) {
+    gx += 5;
+    if (jump == 1) {
+      types = 4;
+    } else {
+      types+=.5;
+    }
+  }
+
+  if (goLeft == 1) {
+    gx -=5;
+    if (jump == 1) {
+      types = -6;
+    } else {
+      types-=.5;
+    }
+  }
+  gvy+=1;
+  gy+=gvy;
+}
+void keyPressed() {
+  if (key == ' ' && bgo == 0) {
+
+
+    if (types >= 0) {//right
+      bx = gx + 5;
+      by = gy-30;
+      bgo = 1;
+    } else {//left
+
+      bx = gx;
+      by = gy-30;
+      bgo = -1;
+    }
+  }
+  if (jump == 0 && keyCode == UP || key == 'w') {
+    jump = 1;
+    gvy = -14;
+  }
+  if (keyCode == RIGHT ||  key == 'd') {
+    goRight = 1;
+    //goLeft = 0;
+  }
+  if (keyCode == LEFT||  key == 'a') {
+    // goRight = 0;
+    goLeft= 1;
+  }
+  if (key == '1') {
+    page =1;
+    gx=50;
+    gy=300;
+    cameraX=0;
+  }
+  if (key == '2') {
+    page =2;
+    pause = 0;
+    gx=50;
+    gy=50;
+    cameraX=0;
+  }
+  if (key == '3') {
+    page =3;
+    pause = 0;
+    gx=50;
+    gy=50;
+    cameraX=0;
+  }
+  if (key == '4') {
+
+    page = 4;
+  }
+}
+void keyReleased() {
+  if (keyCode == RIGHT||  key == 'd') {
+    goRight = 0;
+    //types = 0;
+  }
+  if (keyCode == LEFT||  key == 'a') {
+    goLeft= 0;
+    // types = 0;
+  }
+}
+
+
+void mousePressed() {
+
+  if (page == 0) {
+    page = 1;
+  }
+}
+
+class TREE {
+  float x, y;
+  color c1, c2;
+  float a;
+  float s;
+  TREE(float _x, float _y, color _c1, color _c2, float _a, float _s) {
+    x=_x;
+    y=_y;
+    c1=_c1;
+    c2=_c2;
+    a=_a;
+    s=_s;
+  }
+  void update() {
+    fill(c2);
+    rect(x-10*s-cameraX*a, y, 20*s, 90*s);
+    fill(c1);
+    ellipse(x-cameraX*a, y, 50*s, 50*s);
+  }
+}
+
+class MOUNTAIN {
+  float x, y, a;
+  MOUNTAIN(float _x, float _y, float _a) {
+    x=_x;
+    y=_y;
+    a=_a;
+  }
+  void update() {
+    fill(#006600);
+    triangle(x-cameraX*a, y, x-200-cameraX*a, y+300, x+200-cameraX*a, y+300);
+  }
+}
+
+class BLACK {
+  int cx, cy; 
+  float d=1;
+  float a;
+  BLACK(int _cx, int _cy, float _a) {
+    cx=_cx;
+    cy=_cy;
+    a=_a;
+  }
+  void update() {
+    fill(#8E8C8C);
+    ellipse(cx-cameraX*a, cy, 20*d, 20*d);
+    ellipse(cx+10-cameraX*a, cy, 20*d, 20*d);
+    ellipse(cx+20-cameraX*a, cy, 20*d, 20*d);
+    ellipse(cx+5-cameraX*a, cy-10, 20*d, 20*d);
+    ellipse(cx+15-cameraX*a, cy-10, 20*d, 20*d);
+  }
+}
+
+
+class BG {
+  int x, type;
+
+  BG(int _x, int _type) {
+    x = _x;
+    type = _type;
+  }
+  void update() {
+    FadeX=FadeX-2;
+    if (FadeX<=0) {
+      FadeX = 255;
+    }
+
+
+    if (type == 1) {
+      noStroke();
+      fill(#05145F); //darker blue
+      ellipse(20+(300*x)-cameraX*scroll3, 230, 110, 200);
+      ellipse(100+(300*x)-cameraX*scroll3, 210, 150, 150);
+      ellipse(210+(300*x)-cameraX*scroll3, 230, 125, 130);
+      ellipse(300+(300*x)-cameraX*scroll3, 270, 140, 135);
+      ellipse(395+(300*x)-cameraX*scroll3, 290, 85, 100);
+      ellipse(460+(300*x)-cameraX*scroll3, 290, 100, 120);
+      ellipse(520+(300*x)-cameraX*scroll3, 290, 110, 100);
+      ellipse(620+(300*x)-cameraX*scroll3, 290, 150, 150);
+      rect(0+(300*x)-cameraX*scroll3, 260, 640, 220);
+      fill(#0D3481); //dark blue
+      ellipse(10+(300*x)-cameraX*scroll3, 400, 90, 200);
+      ellipse(100+(300*x)-cameraX*scroll3, 360, 140, 150);
+      ellipse(180+(300*x)-cameraX*scroll3, 380, 90, 80);
+      ellipse(240+(300*x)-cameraX*scroll3, 410, 80, 80);
+      ellipse(350+(300*x)-cameraX*scroll3, 400, 170, 160);
+      ellipse(470+(300*x)-cameraX*scroll3, 420, 120, 125);
+      ellipse(600+(300*x)-cameraX*scroll3, 400, 220, 200);
+      rect(0+(300*x)-cameraX*scroll3, 400, 640, 80);
+
+      fill(#ffffff, 100); //stars
+      noStroke();
+      ellipse(15+(300*x)-cameraX*scroll3, 200, 3, 3);
+      ellipse(25+(300*x)-cameraX*scroll3, 160, 2.5, 2.5);
+      ellipse(35+(300*x)-cameraX*scroll3, 158, 2.5, 2.5);
+      ellipse(50+(300*x)-cameraX*scroll3, 30, 2.5, 2.5);
+      ellipse(30+(300*x)-cameraX*scroll3, 400, 2.5, 2.5);
+      ellipse(100+(300*x)-cameraX*scroll3, 180, 2.5, 2.5);
+      ellipse(500+(300*x)-cameraX*scroll3, 475, 2.5, 2.5);
+      ellipse(635+(300*x)-cameraX*scroll3, 430, 2.5, 2.5);
+      ellipse(600+(300*x)-cameraX*scroll3, 100, 3, 3);
+      ellipse(480+(300*x)-cameraX*scroll3, 80, 3, 3);
+      ellipse(470+(300*x)-cameraX*scroll3, 60, 3, 3);
+      ellipse(350+(300*x)-cameraX*scroll3, 60, 3, 3);
+      ellipse(340+(300*x)-cameraX*scroll3, 360, 3, 3);
+      ellipse(320+(300*x)-cameraX*scroll3, 300, 3, 3);
+      ellipse(250+(300*x)-cameraX*scroll3, 220, 2.5, 2.5);
+      ellipse(200+(300*x)-cameraX*scroll3, 450, 3, 3);
+      fill(#ffffff, 50);
+      ellipse(20+(300*x)-cameraX*scroll3, 430, 4, 4);
+      ellipse(320+(300*x)-cameraX*scroll3, 240, 4, 4);
+      ellipse(330+(300*x)-cameraX*scroll3, 230, 4, 4);
+      ellipse(360+(300*x)-cameraX*scroll3, 280, 3, 3);
+      ellipse(100+(300*x)-cameraX*scroll3, 90, 3, 3);
+      ellipse(125+(300*x)-cameraX*scroll3, 80, 3, 3);
+      ellipse(620+(300*x)-cameraX*scroll3, 180, 3, 3);
+      ellipse(570+(300*x)-cameraX*scroll3, 160, 3, 3);
+      ellipse(550+(300*x)-cameraX*scroll3, 260, 4, 4);
+      ellipse(520+(300*x)-cameraX*scroll3, 380, 4, 4);
+      fill(#ffffff, 20);
+      ellipse(80+(300*x)-cameraX*scroll3, 360, 4, 4);
+      ellipse(50+(300*x)-cameraX*scroll3, 280, 4, 4);
+      ellipse(70+(300*x)-cameraX*scroll3, 20, 4, 4);
+      ellipse(110+(300*x)-cameraX*scroll3, 50, 4, 4);
+      ellipse(170+(300*x)-cameraX*scroll3, 250, 4, 4);
+      ellipse(190+(300*x)-cameraX*scroll3, 190, 4, 4);
+      ellipse(230+(300*x)-cameraX*scroll3, 90, 4, 4);
+      ellipse(300+(300*x)-cameraX*scroll3, 120, 4, 4);
+      ellipse(300+(300*x)-cameraX*scroll3, 420, 4, 4);
+      ellipse(400+(300*x)-cameraX*scroll3, 30, 4, 4);
+      ellipse(390+(300*x)-cameraX*scroll3, 460, 4, 4);
+      ellipse(430+(300*x)-cameraX*scroll3, 450, 4, 4);
+      ellipse(500+(300*x)-cameraX*scroll3, 10, 4, 4);
+      ellipse(550+(300*x)-cameraX*scroll3, 30, 4, 4);
+      ellipse(600+(300*x)-cameraX*scroll3, 410, 4, 4);
+      ellipse(625+(300*x)-cameraX*scroll3, 360, 4, 4);
+      ellipse(500+(300*x)-cameraX*scroll3, 320, 4, 4);
+      ellipse(450+(300*x)-cameraX*scroll3, 300, 4, 4);
+      ellipse(400+(300*x)-cameraX*scroll3, 180, 4, 4);
+
+
+
+
+      fill(#ffffff, FadeX);
+      ellipse(60+(300*x)-cameraX, 120, 3, 3);
+      ellipse(140+(300*x)-cameraX, 420, 4, 4);
+      ellipse(340+(300*x)-cameraX, 20, 3, 3);
+      ellipse(400+(300*x)-cameraX, 220, 4, 4);
+      ellipse(600+(300*x)-cameraX, 310, 4, 4);
+      ellipse(220+(300*x)-cameraX, 40, 2, 2);
+      ellipse(260+(300*x)-cameraX, 320, 2, 2);
+      ellipse(420+(300*x)-cameraX, 400, 2, 2);
+    }
+
+
+
+    if (type == 2) {
+      fill(#EDA04D, 200);
+      noStroke();
+      ellipse(320+(300*x)-cameraX*scroll4, 280, 420, 280);
+      fill(#F0A861, 100);
+      noStroke();
+      ellipse(320+(300*x)-cameraX*scroll3, 290, 750, 100);
+      fill(#A57D55);
+      noStroke();
+      rect(-10+(300*x)-cameraX*scroll5, 270, 60, 40, 50);
+      rect(30+(300*x)-cameraX*scroll5, 260, 40, 40, 50);
+      ellipse(80+(300*x)-cameraX*scroll5, 280, 80, 30);
+      rect(100+(300*x)-cameraX*scroll5, 270, 100, 40, 50);
+      ellipse(170+(300*x)-cameraX*scroll5, 270, 50, 30);
+      rect(190+(300*x)-cameraX*scroll5, 240, 50, 80, 50);
+      ellipse(260+(300*x)-cameraX*scroll5, 270, 100, 50);
+      rect(300+(300*x)-cameraX*scroll5, 240, 100, 100, 20);
+      rect(340+(300*x)-cameraX*scroll5, 220, 40, 30, 20);
+      ellipse(430+(300*x)-cameraX*scroll5, 270, 80, 80);
+      rect(390+(300*x)-cameraX*scroll5, 270, 60, 40, 50);
+      rect(430+(300*x)-cameraX*scroll5, 260, 40, 40, 50);
+      ellipse(480+(300*x)-cameraX*scroll5, 280, 80, 30);
+      rect(500+(300*x)-cameraX*scroll5, 270, 100, 40, 50);
+      ellipse(570+(300*x)-cameraX*scroll5, 270, 50, 30);
+      rect(500+(300*x)-cameraX*scroll5, 260, 100, 40, 50);
+      ellipse(570+(300*x)-cameraX*scroll5, 260, 50, 30);
+      rect(590+(300*x)-cameraX*scroll5, 230, 50, 80, 50);
+      ellipse(660+(300*x)-cameraX*scroll5, 260, 100, 50);
+      rect(700+(300*x)-cameraX*scroll5, 230, 100, 100, 20);
+
+      fill(#BC8D5D);
+      ellipse(30+(300*x)-cameraX*scroll3, 300, 60, 40);
+      rect(60+(300*x)-cameraX*scroll3, 250, 70, 90, 30);
+      ellipse(150+(300*x)-cameraX*scroll3, 300, 60, 60);
+      ellipse(210+(300*x)-cameraX*scroll3, 295, 110, 50);
+      rect(250+(300*x)-cameraX*scroll3, 210, 80, 120, 30);
+      ellipse(350+(300*x)-cameraX*scroll3, 300, 100, 100);
+      rect(380+(300*x)-cameraX*scroll3, 270, 80, 80, 30);
+      ellipse(470+(300*x)-cameraX*scroll3, 280, 50, 100);
+      ellipse(520+(300*x)-cameraX*scroll3, 300, 100, 60);
+      rect(560+(300*x)-cameraX*scroll3, 250, 70, 90, 30);
+      ellipse(650+(300*x)-cameraX*scroll3, 290, 70, 70);
+      fill(#5F3725);
+      beginShape();
+      vertex(90+(300*x)-cameraX*scroll3, 310);
+      vertex(105+(300*x)-cameraX*scroll3, 265);
+      vertex(155+(300*x)-cameraX*scroll3, 265);
+      vertex(160+(300*x)-cameraX*scroll3, 280);
+      vertex(165+(300*x)-cameraX*scroll3, 290);
+      vertex(170+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(380+(300*x)-cameraX*scroll3, 310);
+      vertex(390+(300*x)-cameraX*scroll3, 275);
+      vertex(400+(300*x)-cameraX*scroll3, 260);
+      vertex(405+(300*x)-cameraX*scroll3, 245);
+      vertex(455+(300*x)-cameraX*scroll3, 245);
+      vertex(470+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      fill(#7C4E39);
+      ellipse(130+(300*x)-cameraX*scroll3, 265, 50, 15);
+      ellipse(430+(300*x)-cameraX*scroll3, 245, 50, 15);
+      fill(#502B1A);
+      ellipse(130+(300*x)-cameraX*scroll3, 266, 40, 8);
+      ellipse(430+(300*x)-cameraX*scroll3, 246, 40, 8);
+      fill(#74302C);
+      beginShape();
+      vertex(4+(300*x)-cameraX*scroll3, 300);
+      vertex(2+(300*x)-cameraX*scroll3, 270);
+      vertex(4+(300*x)-cameraX*scroll3, 270);
+      vertex(4+(300*x)-cameraX*scroll3, 230);
+      vertex(62+(300*x)-cameraX*scroll3, 230);
+      vertex(72+(300*x)-cameraX*scroll3, 260);
+      vertex(82+(300*x)-cameraX*scroll3, 300);
+      endShape(CLOSE);
+      beginShape();
+      vertex(210+(300*x)-cameraX*scroll3, 300);
+      vertex(220+(300*x)-cameraX*scroll3, 260);
+      vertex(240+(300*x)-cameraX*scroll3, 230);
+      vertex(310+(300*x)-cameraX*scroll3, 230);
+      vertex(330+(300*x)-cameraX*scroll3, 260);
+      vertex(340+(300*x)-cameraX*scroll3, 300);
+      endShape(CLOSE);
+      beginShape();
+      vertex(510+(300*x)-cameraX*scroll3, 300);
+      vertex(520+(300*x)-cameraX*scroll3, 250);
+      vertex(535+(300*x)-cameraX*scroll3, 230);
+      vertex(540+(300*x)-cameraX*scroll3, 195);
+      vertex(620+(300*x)-cameraX*scroll3, 200);
+      vertex(630+(300*x)-cameraX*scroll3, 300);
+      endShape(CLOSE);
+      fill(#9D4A46);
+      noStroke();
+      ellipse(33+(300*x)-cameraX*scroll3, 230, 58, 15);
+      ellipse(275+(300*x)-cameraX*scroll3, 230, 70, 15);
+      ellipse(580+(300*x)-cameraX*scroll3, 198, 80, 25);
+      fill(#8E433F);
+      noStroke();
+      ellipse(33+(300*x)-cameraX*scroll3, 229, 58, 11);
+      ellipse(275+(300*x)-cameraX*scroll3, 229, 70, 11);
+      ellipse(580+(300*x)-cameraX*scroll3, 197, 80, 21);
+      fill(#551E1B);
+      noStroke();
+      ellipse(33+(300*x)-cameraX*scroll3, 228, 42, 6);
+      ellipse(275+(300*x)-cameraX*scroll3, 228, 60, 6);
+      ellipse(580+(300*x)-cameraX*scroll3, 197, 60, 12);
+      fill(#310B09);
+      noStroke();
+      beginShape();
+      vertex(330+(300*x)-cameraX*scroll3, 265);
+      vertex(330+(300*x)-cameraX*scroll3, 310);
+      vertex(640+(300*x)-cameraX*scroll3, 290);
+      endShape(CLOSE);
+      fill(#834D4A);
+      beginShape();
+      vertex(0+(300*x)-cameraX*scroll3, 300);
+      vertex(330+(300*x)-cameraX*scroll3, 265);
+      vertex(310+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      fill(#5A2624);
+      noStroke();
+      beginShape();
+      vertex(0+(300*x)-cameraX*scroll3, 310);
+      vertex(330+(300*x)-cameraX*scroll3, 265);
+      vertex(640+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      fill(#AF3E47);
+      beginShape();
+      vertex(-20+(300*x)-cameraX*scroll3, 310);
+      vertex(15+(300*x)-cameraX*scroll3, 270);
+      vertex(60+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(50+(300*x)-cameraX*scroll3, 310);
+      vertex(90+(300*x)-cameraX*scroll3, 250);
+      vertex(130+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(430+(300*x)-cameraX*scroll3, 310);
+      vertex(460+(300*x)-cameraX*scroll3, 250);
+      vertex(490+(300*x)-cameraX*scroll3, 270);
+      vertex(505+(300*x)-cameraX*scroll3, 260);
+      vertex(520+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(480+(300*x)-cameraX*scroll3, 310);
+      vertex(530+(300*x)-cameraX*scroll3, 250);
+      vertex(560+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(550+(300*x)-cameraX*scroll3, 310);
+      vertex(605+(300*x)-cameraX*scroll3, 230);
+      vertex(660+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      fill(#983342);
+      beginShape();
+      vertex(10+(300*x)-cameraX*scroll3, 310);
+      vertex(50+(300*x)-cameraX*scroll3, 270);
+      vertex(80+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(120+(300*x)-cameraX*scroll3, 310);
+      vertex(250+(300*x)-cameraX*scroll3, 270);
+      vertex(270+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(270+(300*x)-cameraX*scroll3, 310);
+      vertex(310+(300*x)-cameraX*scroll3, 280);
+      vertex(360+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(350+(300*x)-cameraX*scroll3, 310);
+      vertex(390+(300*x)-cameraX*scroll3, 290);
+      vertex(435+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      beginShape();
+      vertex(500+(300*x)-cameraX*scroll3, 310);
+      vertex(560+(300*x)-cameraX*scroll3, 260);
+      vertex(610+(300*x)-cameraX*scroll3, 310);
+      endShape(CLOSE);
+      fill(#7C3A2F);
+      rect(0+(300*x)-cameraX*scroll3, 310, 640, 15);
+      fill(#6C2D23);
+      rect(0+(300*x)-cameraX*scroll3, 325, 640, 8);
+      fill(#582779);
+      rect(0+(300*x)-cameraX*scroll3, 332, 640, 20);
+      fill(#A7544C);
+      rect(0+(300*x)-cameraX*scroll3, 350, 640, 80);
+      ellipse(20+(300*x)-cameraX*scroll3, 350, 20, 10);
+      ellipse(140+(300*x)-cameraX*scroll3, 350, 30, 12);
+      ellipse(220+(300*x)-cameraX*scroll3, 352, 25, 10);
+      ellipse(260+(300*x)-cameraX*scroll3, 352, 40, 10);
+      ellipse(360+(300*x)-cameraX*scroll3, 350, 60, 10);
+      ellipse(420+(300*x)-cameraX*scroll3, 350, 60, 10);
+      ellipse(520+(300*x)-cameraX*scroll3, 350, 60, 10);
+      ellipse(590+(300*x)-cameraX*scroll3, 350, 100, 10);
+      fill(#954139);
+      rect(0+(300*x)-cameraX*scroll3, 430, 640, 50);
+      ellipse(10+(300*x)-cameraX*scroll3, 430, 50, 12);
+      ellipse(50+(300*x)-cameraX*scroll3, 430, 30, 10);
+      ellipse(90+(300*x)-cameraX*scroll3, 430, 70, 13);
+      ellipse(140+(300*x)-cameraX*scroll3, 430, 30, 10);
+      ellipse(180+(300*x)-cameraX*scroll3, 430, 50, 13);
+      ellipse(220+(300*x)-cameraX*scroll3, 430, 30, 10);
+      ellipse(260+(300*x)-cameraX*scroll3, 430, 70, 13);
+      ellipse(310+(300*x)-cameraX*scroll3, 430, 30, 10);
+      ellipse(340+(300*x)-cameraX*scroll3, 430, 50, 12);
+      ellipse(380+(300*x)-cameraX*scroll3, 430, 30, 10);
+      ellipse(410+(300*x)-cameraX*scroll3, 430, 50, 12);
+      ellipse(450+(300*x)-cameraX*scroll3, 430, 30, 10);
+      ellipse(490+(300*x)-cameraX*scroll3, 430, 70, 13);
+      ellipse(540+(300*x)-cameraX*scroll3, 430, 30, 10);
+      ellipse(580+(300*x)-cameraX*scroll3, 430, 50, 13);
+      ellipse(620+(300*x)-cameraX*scroll3, 430, 70, 12);
+    }
+
+    
+
+      if (type == 3) {
+      fill(#3E3E3E, 100);
+      noStroke();
+      beginShape();
+      vertex(80+(300*x)-cameraX*scroll6, 50);
+      vertex(70+(300*x)-cameraX*scroll6, 530);
+      vertex(105+(300*x)-cameraX*scroll6, 530);
+      vertex(95+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      beginShape();
+      vertex(230+(300*x)-cameraX*scroll6, 50);
+      vertex(225+(300*x)-cameraX*scroll6, 530);
+      vertex(250+(300*x)-cameraX*scroll6, 530);
+      vertex(245+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      beginShape();
+      vertex(380+(300*x)-cameraX*scroll6, 50);
+      vertex(370+(300*x)-cameraX*scroll6, 530);
+      vertex(410+(300*x)-cameraX*scroll6, 530);
+      vertex(395+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      beginShape();
+      vertex(550+(300*x)-cameraX*scroll6, 50);
+      vertex(540+(300*x)-cameraX*scroll6, 530);
+      vertex(570+(300*x)-cameraX*scroll6, 530);
+      vertex(565+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      fill(#333433); //tree leaves
+      ellipse(-10+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(20+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(40+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(60+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(80+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(100+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(120+(300*x)-cameraX*scroll6, 70, 40, 40);
+      ellipse(140+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(160+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(180+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(220+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(240+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(260+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(280+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(300+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(320+(300*x)-cameraX*scroll6, 70, 40, 40);
+      ellipse(340+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(360+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(460+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(480+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(400+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(420+(300*x)-cameraX*scroll6, 70, 40, 40);
+      ellipse(440+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(560+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(560+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(580+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(500+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(520+(300*x)-cameraX*scroll6, 70, 40, 40);
+      ellipse(540+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(560+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(580+(300*x)-cameraX*scroll6, 50, 40, 40);
+      ellipse(600+(300*x)-cameraX*scroll6, 60, 40, 40);
+      ellipse(620+(300*x)-cameraX*scroll6, 70, 40, 40);
+      ellipse(640+(300*x)-cameraX*scroll6, 50, 40, 40);
+      fill(#3E3E3E, 100);
+      stroke(#3E3E3E, 100);
+      strokeWeight(6);
+      line(97+(300*x)-cameraX*scroll6, 150, 120+(300*x)-cameraX*scroll6, 50);
+      line(227+(300*x)-cameraX*scroll6, 200, 200+(300*x)-cameraX*scroll6, 50);
+      strokeWeight(7);
+      line(246+(300*x)-cameraX*scroll6, 140, 280+(300*x)-cameraX*scroll6, 50);
+      line(375+(300*x)-cameraX*scroll6, 180, 350+(300*x)-cameraX*scroll6, 50);
+      line(364+(300*x)-cameraX*scroll6, 90, 376+(300*x)-cameraX*scroll6, 120);
+      line(400+(300*x)-cameraX*scroll6, 150, 440+(300*x)-cameraX*scroll6, 50);
+      line(545+(300*x)-cameraX*scroll6, 170, 500+(300*x)-cameraX*scroll6, 100);
+      line(510+(300*x)-cameraX*scroll6, 110, 525+(300*x)-cameraX*scroll6, 90);
+      line(566+(300*x)-cameraX*scroll6, 130, 600+(300*x)-cameraX*scroll6, 60);
+      fill(#3E3E3E, 180);
+      noStroke();
+      beginShape();
+      vertex(130+(300*x)-cameraX*scroll6, 50);
+      vertex(125+(300*x)-cameraX*scroll6, 530);
+      vertex(160+(300*x)-cameraX*scroll6, 530);
+      vertex(150+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      beginShape();
+      vertex(310+(300*x)-cameraX*scroll6, 50);
+      vertex(305+(300*x)-cameraX*scroll6, 530);
+      vertex(330+(300*x)-cameraX*scroll6, 530);
+      vertex(340+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      beginShape();
+      vertex(480+(300*x)-cameraX*scroll6, 50);
+      vertex(475+(300*x)-cameraX*scroll6, 530);
+      vertex(510+(300*x)-cameraX*scroll6, 530);
+      vertex(500+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      fill(#3E3E3E, 160);
+      stroke(#3E3E3E, 180);
+      strokeWeight(8);
+      line(126+(300*x)-cameraX*scroll6, 180, 95+(300*x)-cameraX*scroll6, 50);
+      line(152+(300*x)-cameraX*scroll6, 130, 172+(300*x)-cameraX*scroll6, 50);
+      line(306+(300*x)-cameraX*scroll6, 140, 270+(300*x)-cameraX*scroll6, 50);
+      line(340+(300*x)-cameraX*scroll6, 160, 355+(300*x)-cameraX*scroll6, 130);
+      line(504+(300*x)-cameraX*scroll6, 150, 540+(300*x)-cameraX*scroll6, 130);
+      line(478+(300*x)-cameraX*scroll6, 170, 450+(300*x)-cameraX*scroll6, 140);
+      line(449+(300*x)-cameraX*scroll6, 134, 449+(300*x)-cameraX*scroll6, 50);
+      fill(#383938);
+      noStroke();
+      beginShape();
+      vertex(30+(300*x)-cameraX*scroll6, 50);
+      vertex(20+(300*x)-cameraX*scroll6, 530);
+      vertex(55+(300*x)-cameraX*scroll6, 530);
+      vertex(50+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      beginShape();
+      vertex(190+(300*x)-cameraX*scroll6, 50);
+      vertex(185+(300*x)-cameraX*scroll6, 530);
+      vertex(225+(300*x)-cameraX*scroll6, 530);
+      vertex(215+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      beginShape();
+      vertex(430+(300*x)-cameraX*scroll6, 50);
+      vertex(425+(300*x)-cameraX*scroll6, 530);
+      vertex(465+(300*x)-cameraX*scroll6, 530);
+      vertex(460+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      beginShape();
+      vertex(610+(300*x)-cameraX*scroll6, 50);
+      vertex(595+(300*x)-cameraX*scroll6, 530);
+      vertex(635+(300*x)-cameraX*scroll6, 530);
+      vertex(630+(300*x)-cameraX*scroll6, 50);
+      endShape(CLOSE);
+      fill(#383938);
+      stroke(#383938);
+      strokeWeight(10);
+      line(50+(300*x)-cameraX*scroll6, 150, 80+(300*x)-cameraX*scroll6, 140);
+      line(80+(300*x)-cameraX*scroll6, 140, 85+(300*x)-cameraX*scroll6, 50);
+      line(85+(300*x)-cameraX*scroll6, 80, 110+(300*x)-cameraX*scroll6, 50);
+      line(40+(300*x)-cameraX*scroll6, 130, 10+(300*x)-cameraX*scroll6, 110);
+      line(10+(300*x)-cameraX*scroll6, 110, 5+(300*x)-cameraX*scroll6, 50);
+      strokeWeight(12);
+      line(190+(300*x)-cameraX*scroll6, 110, 180+(300*x)-cameraX*scroll6, 90);
+      line(180+(300*x)-cameraX*scroll6, 90, 130+(300*x)-cameraX*scroll6, 50);
+      line(170+(300*x)-cameraX*scroll6, 80, 160+(300*x)-cameraX*scroll6, 50);
+      strokeWeight(8);
+      line(200+(300*x)-cameraX*scroll6, 130, 250+(300*x)-cameraX*scroll6, 50);
+      strokeWeight(9);
+      line(200+(300*x)-cameraX*scroll6, 160, 240+(300*x)-cameraX*scroll6, 130);
+      line(240+(300*x)-cameraX*scroll6, 130, 280+(300*x)-cameraX*scroll6, 50);
+      strokeWeight(10);
+      line(430+(300*x)-cameraX*scroll6, 180, 405+(300*x)-cameraX*scroll6, 170);
+      line(405+(300*x)-cameraX*scroll6, 170, 380+(300*x)-cameraX*scroll6, 50);
+      line(385+(300*x)-cameraX*scroll6, 90, 365+(300*x)-cameraX*scroll6, 85);
+      line(365+(300*x)-cameraX*scroll6, 85, 350+(300*x)-cameraX*scroll6, 50);
+      line(450+(300*x)-cameraX*scroll6, 150, 480+(300*x)-cameraX*scroll6, 140);
+      line(480+(300*x)-cameraX*scroll6, 140, 490+(300*x)-cameraX*scroll6, 50);
+      line(485+(300*x)-cameraX*scroll6, 100, 520+(300*x)-cameraX*scroll6, 50);
+      line(610+(300*x)-cameraX*scroll6, 160, 540+(300*x)-cameraX*scroll6, 50);
+      line(570+(300*x)-cameraX*scroll6, 85, 590+(300*x)-cameraX*scroll6, 50);
+      line(630+(300*x)-cameraX*scroll6, 120, 640+(300*x)-cameraX*scroll6, 100);
+      fill(#3E3E3E); //tree leaves 2
+      noStroke();
+      ellipse(20+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(40+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(60+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(80+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(100+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(120+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(140+(300*x)-cameraX*scroll6, 50, 45, 40);
+      ellipse(160+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(180+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(200+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(220+(300*x)-cameraX*scroll6, 50, 45, 40);
+      ellipse(240+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(260+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(280+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(300+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(320+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(340+(300*x)-cameraX*scroll6, 50, 45, 40);
+      ellipse(360+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(380+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(480+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(500+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(420+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(440+(300*x)-cameraX*scroll6, 50, 45, 40);
+      ellipse(460+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(580+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(580+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(600+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(520+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(540+(300*x)-cameraX*scroll6, 50, 45, 40);
+      ellipse(560+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(580+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(600+(300*x)-cameraX*scroll6, 30, 45, 40);
+      ellipse(620+(300*x)-cameraX*scroll6, 40, 45, 40);
+      ellipse(640+(300*x)-cameraX*scroll6, 50, 45, 40);
+      ellipse(660+(300*x)-cameraX*scroll6, 30, 45, 40);
+      fill(#4D4D4C);
+      noStroke();
+      ellipse(-10+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(20+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(40+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(60+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(80+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(100+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(120+(300*x)-cameraX*scroll6, 30, 50, 45);
+      ellipse(140+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(160+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(180+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(200+(300*x)-cameraX*scroll6, 30, 50, 45);
+      ellipse(220+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(240+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(260+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(280+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(300+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(320+(300*x)-cameraX*scroll6, 30, 50, 45);
+      ellipse(340+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(360+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(460+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(480+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(400+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(420+(300*x)-cameraX*scroll6, 30, 50, 45);
+      ellipse(440+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(560+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(560+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(580+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(500+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(520+(300*x)-cameraX*scroll6, 30, 50, 45);
+      ellipse(540+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(560+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(580+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(600+(300*x)-cameraX*scroll6, 20, 50, 45);
+      ellipse(620+(300*x)-cameraX*scroll6, 30, 50, 45);
+      ellipse(640+(300*x)-cameraX*scroll6, 10, 50, 45);
+      ellipse(340+(300*x)-cameraX*scroll6, 0, 640, 10);
+    }
+  }
+}
+
+
+/////////////////////Space Background
+int FadeX = 255;
+
+void bordersAndCamera() {
+  //borders for square frog top left 37.5 by 37.5
+  //left
+  if (gx < 5) {
+    gx = 5;
+  }
+  //right       
+  if (gx > mapWidth - 5) {
+    gx = mapWidth - 5;
+  }
+  //camera code for a 300 by 300 canvas and a 37.5 pixel velocity
+  //horizontal camera 
+  if (gx > cameraX + 250 && cameraX < (mapWidth - width)) {
+  //  println(true);
+    cameraX = gx - 250;
+  }
+
+  if (gx < cameraX + 150 && cameraX > 0) {
+    cameraX = gx - 150;
+  }
+}
+
+void gameplay() {
+  if (page == 0) {
+    title();
+  }
+
+  if (page==1) {
+    mapWidth=1500;
+    map1();
+    drawSamus();
+  }
+  if (page==2) {
+    scroll3 = .5;
+    mapWidth=1500;
+    map2();
+    drawSamus();
+  }
+  if (page == 3) {
+    mapWidth=1500;
+    map3();
+    drawSamus();
+  }
+  
+  if(page == 4){
+  win();
+  }
+
+
+
+
+  //stroke(1);
+  //rect(gx-5-cameraX, gy, 48, -48);
+  // image(b,200, 200, 16, 16);
+}
+
+PImage one;
+
+PImage right, right1, right2, right3, right4, right5, right6, right7, right8, right9, right10;
+PImage left, left1, left2, left3, left4, left5, left6, left7, left8, left9, left10;
+PImage b, ship;
+//PImage start;
+
+
+void loadImages() {
+  PImage q = loadImage("data/metroidSprites.png");
+  one= new PImage(48, 48, ARGB);
+  one.copy(q, 0, 0, 48, 48, 0, 0, 48, 48);
+
+  right= new PImage(48, 48, ARGB);
+  right.copy(q, 0, 48, 48, 48, 0, 0, 48, 48);
+
+  right1= new PImage(48, 48, ARGB);
+  right1.copy(q, 0+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right2= new PImage(48, 48, ARGB);
+  right2.copy(q, 0+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right3= new PImage(48, 48, ARGB);
+  right3.copy(q, 0+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right4= new PImage(48, 48, ARGB);
+  right4.copy(q, 0+48+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right5= new PImage(48, 48, ARGB);
+  right5.copy(q, 0+48+48+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right6= new PImage(48, 48, ARGB);
+  right6.copy(q, 0+48+48+48+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right7= new PImage(48, 48, ARGB);
+  right7.copy(q, 0+48+48+48+48+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right8= new PImage(48, 48, ARGB);
+  right8.copy(q, 0+48+48+48+48+48+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right9= new PImage(48, 48, ARGB);
+  right9.copy(q, 0+48+48+48+48+48+48+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+  right10= new PImage(48, 48, ARGB);
+  right10.copy(q, 0+48+48+48+48+48+48+48+48+48+48, 48, 48, 48, 0, 0, 48, 48);
+
+
+
+  left10= new PImage(48, 48, ARGB);
+  left10.copy(q, 0, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left9= new PImage(48, 48, ARGB);
+  left9.copy(q, 0+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left8= new PImage(48, 48, ARGB);
+  left8.copy(q, 0+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left7= new PImage(48, 48, ARGB);
+  left7.copy(q, 0+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left6= new PImage(48, 48, ARGB);
+  left6.copy(q, 0+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left5= new PImage(48, 48, ARGB);
+  left5.copy(q, 0+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left4= new PImage(48, 48, ARGB);
+  left4.copy(q, 0+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left3= new PImage(48, 48, ARGB);
+  left3.copy(q, 0+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left2= new PImage(48, 48, ARGB);
+  left2.copy(q, 0+48+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left1= new PImage(48, 48, ARGB);
+  left1.copy(q, 0+48+48+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+  left= new PImage(48, 48, ARGB);
+  left.copy(q, 0+48+48+48+48+48+48+48+48+48+48, 48+48, 48, 48, 0, 0, 48, 48);
+
+
+  b= new PImage(16, 16, ARGB);
+  b.copy(q, 0, 48+48+48, 16, 16, 0, 0, 16, 16);
+
+
+  q = loadImage("data/samusship.png");
+
+  ship= new PImage(190, 80, ARGB);
+  ship.copy(q, 0, 0, 190, 80, 0, 0, 190, 80);
+}
+
+
+
+float types;
+
+
+void drawSamus() {
+  if (bgo != 0) {
+
+    bx+=15*bgo;
+
+    if (bx-cameraX > width + 10 || bx - cameraX < -10) {
+      bgo = 0;
+      bx = -9999;
+    }
+
+
+    //ellipse(gx+30-cameraX, gy-27, 4, 4);
+    image(b, bx - cameraX, by, 8, 8);
+  }
+
+
+
+  if (goRight == 1) {
+
+    if (types < 0) {
+      types = 1;
+    }
+
+    if (((int)types) == 11) {
+      types = 1;
+    }
+    if ( ((int)types) == 0) {
+      image(right, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 1) {
+      image(right1, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 2) {
+      image(right2, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 3) {
+      image(right3, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 4) {
+      image(right4, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 5) {
+      image(right5, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 6) {
+      image(right6, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 7) {
+      image(right7, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 8) {
+      image(right8, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 9) {
+      image(right9, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 10) {
+      image(right10, gx-5-cameraX, gy, 48, -48);
+    }
+  } else if (goLeft == 1) {
+    if (types > 0) {
+      types = -1;
+    }
+
+
+    if (((int)types) == -11) {
+      types = -1;
+    }
+    if ( ((int)types) == -1) {
+      image(left10, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -2) {
+      image(left9, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -3) {
+      image(left8, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -4) {
+      image(left7, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -5) {
+      image(left6, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -6) {
+      image(left5, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -7) {
+      image(left4, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -8) {
+      image(left3, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -9) {
+      image(left2, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == -10) {
+      image(left1, gx-5-cameraX, gy, 48, -48);
+    } else if ( ((int)types) == 0) {
+      image(left, gx-5-cameraX, gy, 48, -48);
+    }
+  } else {
+    //  println(types + "  " + random(100));
+    if (types < 0) {
+      image(left, gx-5-cameraX, gy, 48, -48);
+    }
+    if (types >= 0) {
+      image(right, gx-5-cameraX, gy, 48, -48);
+    }
+
+    if (types == 0) {
+      // image(right, gx-5-cameraX, gy, 48, -48);
+    }
+  }
+
+
+
+  drawcoin();
+}
+
+float bx, by;
+int bgo;
+
+//CLOUD c0 = new CLOUD(0, 350, 225, 1); // ground
+CLOUD c1 = new CLOUD(25, 400, 100, 2, 0);
+CLOUD c2 = new CLOUD(200, 320, 100, 2, 1);
+CLOUD c3 = new CLOUD(350, 400, 100, 2, 0);
+CLOUD c4 = new CLOUD(500, 340, 100, 2, 0);
+CLOUD c5 = new CLOUD(650, 260, 100, 2, 0);
+CLOUD c6 = new CLOUD(650, 260-80, 100, 2, 0);
+CLOUD c7 = new CLOUD(800, 470, 100, 2, 0);
+CLOUD c8 = new CLOUD(950, 390, 100, 2, 0);
+CLOUD c9 = new CLOUD(1100, 310, 100, 2, 0);
+CLOUD c10 = new CLOUD(1260, 450, 100, 2, 0);
+
+
+
+
+
+COIN cn1 = new COIN (350, 385);
+COIN cn2 = new COIN (660, 260-100);
+COIN cn3 = new COIN (1100, 300);
+
+
+
+
+
+
+
+TREE t1 = new TREE(300, 262, #00aa00, #c6aa90, .4, 2);
+TREE t3 = new TREE(200, 262, #00aa00, #c6aa90, .4, 2);
+TREE t2 = new TREE(350, 290, #008800, #86AA90, .5, 2);
+
+MOUNTAIN m1 = new MOUNTAIN(80, 240, .8);
+
+
+
+PORTAL p1 = new PORTAL(1300, 450, 2);
+PORTAL p2 = new PORTAL(1290, 450, 3);
+PORTAL p3 = new PORTAL(1285, 450, 4);
+
+
+
+BG bg1 = new BG(0, 1);
+BG bg2 = new BG(2, 1);
+BG bg3 = new BG(4, 1);
+
+
+
+float scroll1 = .5;
+float scroll2 = .2;
+float scroll3 = .1;
+float scroll4 = .09;
+float scroll5 = .2;
+float scroll6 = .2;
+
+
+boo b1 = new boo(200, 400, 25, 1);
+boo b2 = new boo(500, 200, 25, 1);
+boo b3 = new boo(800, 250, 25, 1);
+boo b4 = new boo(1050, 300, 25, 2);
+
+boo b13 = new boo(300, 100, 25, 1);
+boo b14 = new boo(600, 300, 25, 2);
+boo b15 = new boo(900, 150, 25, 1);
+boo b16 = new boo(1150, 120, 25, 2);
+
+
+
+
+
+
+
+
+
+
+
+void map1() {
+  background(#081246); //darkest blue
+
+  if (pause==0) {
+    guymotion();
+  }
+  if (pause==1) {
+    gy-=5;
+
+    if (gy<0) {
+      pause=3;
+    }
+  }
+  if (gy>500) {
+    ouch();
+  }
+
+  bordersAndCamera();
+
+  bg1.update();
+  bg2.update();
+  bg3.update();
+
+  fill(#381D64, 250);      /// MOON
+  noStroke();
+  ellipse(490-cameraX*scroll1, 123, 85, 85);
+  fill(#081246);
+  ellipse(475-cameraX*scroll1, 120, 68, 65);
+
+
+  jump = 1;//1 line of code. falling jump fix
+  // c0.update();
+  c1.update();
+  c2.update();
+  c3.update();
+
+  c4.update();
+
+  c5.update();
+  c6.update();
+  c7.update();
+  c8.update();
+  c9.update();
+  c10.update();
+  /*
+   c11.update();
+   c12.update();
+   c13.update();
+   c14.update();
+   c15.update();
+   
+   */
+  b1.update();
+  b2.update();
+  b3.update();
+  b4.update();
+  b13.update();
+  b14.update();
+  b15.update();
+  b16.update();
+
+
+  cn1.update();
+  cn2.update();
+  cn3.update();
+
+  //println(cameraX + 250, gx);
+
+
+
+  //guy
+  fill(#FF0000);
+  //ellipse(gx+18,gy,5,5);
+  //image(one, gx-5-cameraX, gy, 48, -48);
+  p1.update();
+}
+
+
+
+ROCK r1 = new ROCK(25, 100, 100, 2, 0);
+ROCK r2 = new ROCK(150, 320, 100, 1, 0);
+ROCK r3 = new ROCK(320, 400, 100, 2, 0);
+ROCK r4 = new ROCK(460, 340, 100, 2, 0);
+ROCK r5 = new ROCK(615, 260+15, 100, 2, 0);
+ROCK r6 = new ROCK(615, 260-80+15, 100, 2, 0);
+ROCK r7 = new ROCK(750, 470, 100, 2, 0);
+ROCK r8 = new ROCK(900, 410, 100, 2, 0);
+ROCK r11 = new ROCK(1010, 370, 100, 2, 0);
+
+ROCK r9 = new ROCK(1100, 310, 100, 2, 0);
+ROCK r10 = new ROCK(1260, 450, 100, 2, 0);
+
+
+COIN cn4 = new COIN (170, 305);
+COIN cn5 = new COIN (470, 320);
+COIN cn6 = new COIN (760, 455);
+
+boo b5 = new boo(200, 400, 25, 1);
+boo b6 = new boo(500, 200, 25, 2);
+boo b7 = new boo(800, 250, 25, 2);
+boo b8 = new boo(1050, 300, 25, 3);
+
+boo b17 = new boo(300, 100, 25, 1);
+boo b18 = new boo(600, 300, 25, 2);
+boo b19 = new boo(900, 150, 25, 2);
+boo b20 = new boo(1150, 120, 25, 3);
+
+BG bg4 = new BG(0, 2);
+BG bg5 = new BG(2, 2);
+BG bg6 = new BG(4, 2);
+
+void map2() {
+  background(#F0BB83);
+
+  if (pause==0) {
+    guymotion();
+  }
+  if (pause==1) {
+    gy-=5;
+
+    if (gy<0) {
+      pause=3;
+    }
+  }
+  if (gy>500) {
+    // println("yes");
+    ouch();
+  }
+
+  bordersAndCamera();
+
+  bg4.update();
+  bg5.update();
+  bg6.update();
+
+
+
+
+  jump = 1;//1 line of code. falling jump fix
+  // c0.update();
+  r1.update();
+  r2.update();
+  r3.update();
+
+  r4.update();
+
+  r5.update();
+  r6.update();
+  r7.update();
+  r8.update();
+  r9.update();
+  r10.update();
+  r11.update();
+
+  cn4.update();
+  cn5.update();
+  cn6.update();
+
+
+  b5.update();
+  b6.update();
+  b7.update();
+  b8.update();
+  b17.update();
+  b18.update();
+  b19.update();
+  b20.update();
+
+
+
+  //guy
+  //  fill(#FF0000);
+  //ellipse(gx+18,gy,5,5);
+  //image(one, gx-5-cameraX, gy, 48, -48);
+  p2.update();
+}
+
+
+
+GRAY g1 = new GRAY(25, 260, 100, 2, 0);
+GRAY g2 = new GRAY(150, 320, 100, 1, 0);
+GRAY g3 = new GRAY(320, 400, 100, 2, 0);
+GRAY g4 = new GRAY(460, 340, 100, 2, 0);
+GRAY g5 = new GRAY(615, 260+15, 100, 2, 0);
+GRAY g6 = new GRAY(615, 260-80+15, 100, 2, 0);
+GRAY g7 = new GRAY(750, 470, 100, 2, 0);
+GRAY g8 = new GRAY(900, 410, 100, 2, 0);
+GRAY g11 = new GRAY(1010, 370, 100, 2, 0);
+
+GRAY g9 = new GRAY(1100, 310, 100, 2, 0);
+GRAY g10 = new GRAY(1260, 450, 100, 2, 0);
+
+
+COIN cn7 = new COIN (320, 390);
+COIN cn8 = new COIN (625, 260-80+5);
+COIN cn9 = new COIN (915, 395);
+
+
+boo b9 = new boo(290, 400, 25, 3);
+boo b10 = new boo(500, 200, 25, 2);
+boo b11 = new boo(800, 250, 25, 3);
+boo b12 = new boo(1050, 300, 25, 3);
+
+boo b21 = new boo(370, 100, 25, 3);
+boo b22 = new boo(600, 300, 25, 3);
+boo b23 = new boo(900, 150, 25, 3);
+boo b24 = new boo(1150, 120, 25, 3);
+
+
+BG bg7 = new BG(0, 3);
+BG bg8 = new BG(2, 3);
+BG bg9 = new BG(4, 3);
+
+void map3() {
+  background(#5C5F5C, 100);
+
+  if (pause==0) {
+    guymotion();
+  }
+  if (pause==1) {
+    gy-=5;
+
+    if (gy<0) {
+      pause=3;
+    }
+  }
+  if (gy>500) {
+    // println("yes");
+    ouch();
+  }
+
+  bordersAndCamera();
+
+  bg7.update();
+  bg8.update();
+  bg9.update();
+
+
+
+
+  jump = 1;//1 line of code. falling jump fix
+  // c0.update();
+  g1.update();
+  g2.update();
+  g3.update();
+  g4.update();
+
+  g5.update();
+  g6.update();
+  g7.update();
+  g8.update();
+  g9.update();
+  g10.update();
+  g11.update();
+
+  cn7.update();
+  cn8.update();
+  cn9.update();
+
+  b9.update();
+  b10.update();
+  b11.update();
+  b12.update();
+  b21.update();
+  b22.update();
+  b23.update();
+  b24.update();
+
+  //guy
+  //  fill(#FF0000);
+  //ellipse(gx+18,gy,5,5);
+  //image(one, gx-5-cameraX, gy, 48, -48);
+  p3.update();
+
+  image(ship, 1200-cameraX, -20, 190, 160/2);
+}
+
+void ouch() {
+  gx=40;
+
+  if (page ==1) {
+    gy=350;
+  }
+  if (page ==2) {
+    gy=50;
+  }
+  if (page == 3) {
+    gy=200;
+  }
+
+
+  gvy=0;
+  cameraX=0;
+}
+
+class CLOUD {
+  int x, y, w, t, go;
+  CLOUD(int _x, int _y, int _w, int _t, int _go) {
+    x = _x;
+    y = _y;
+    w = _w;
+    t =_t;
+    go =_go;
+  }
+  void update() {
+    //  println(gx+5);
+
+
+    if (t==1) {
+      fill(#D14141);
+      rect(x-cameraX, y, x+w, 55);
+    }
+    if (t==2) {
+
+      if (gx+18 > x && gx +18 < x + w   && gy > y && gy<=y + gvy) {
+        gy = y;
+        jump = 0;
+        gvy = 0;
+      }
+      /*
+      if (go == 1) {
+       y-=5;
+       if (y<=-20) {
+       y=500;
+       }
+       }
+       */
+
+      //  fill(100);
+      //   rect(x-cameraX, y, w, 5);
+
+      fill(#ffffff); //cloud platform
+      noStroke();
+      ellipse(x-cameraX, y, 10, 5); 
+      ellipse(x+20-cameraX, y, 40, 10);
+      ellipse(x+30-cameraX, y+5, 40, 12);
+      ellipse(x+30-cameraX, y+12, 10, 5);
+      ellipse(x+50-cameraX, y+10, 35, 25);
+      ellipse(x+40-cameraX, y-2, 10, 5);
+      ellipse(x+50-cameraX, y-2, 15, 7);
+      ellipse(x+62-cameraX, y-2, 15, 7);
+      ellipse(x+70-cameraX, y+6, 20, 15);
+      ellipse(x+85-cameraX, y+6, 18, 12);
+      ellipse(x+76-cameraX, y, 30, 8);
+      ellipse(x+98-cameraX, y+2, 30, 8);
+      ellipse(x+90-cameraX, y+2, 10, 5);
+      ellipse(x+98-cameraX, y+6, 10, 5);
+      ellipse(x+95-cameraX, y+5, 10, 5);
+    }
+  }
+}
+
+
+
+
+class ROCK {
+  int x, y, w, t, go;
+  ROCK(int _x, int _y, int _w, int _t, int _go) {
+    x = _x;
+    y = _y;
+    w = _w;
+    t =_t;
+    go =_go;
+  }
+  void update() {
+    //  println(gx+5);
+
+    stroke(255);
+    strokeWeight(2);
+    if (t==1) {
+      if (gx+18 > x && gx +18 < x + 30   && gy > y && gy<=y + gvy) {
+        gy = y;
+        jump = 0;
+        gvy = 0;
+      }
+      fill(#5D3814);
+      rect(x-cameraX, y, 30, 18, 10);
+      beginShape();
+      vertex(x-cameraX+3, y+15);
+      vertex(x-cameraX+6, y+20);
+      vertex(x-cameraX+16, y+20);
+      vertex(x-cameraX+20, y+15);
+      endShape(CLOSE);
+      triangle(x-cameraX+8, y+20, x-cameraX+11, y+30, x-cameraX+13, y+20);
+      triangle(x-cameraX+17, y+18, x-cameraX+19, y+27, x-cameraX+21, y+18);
+      triangle(x-cameraX+22, y+17, x-cameraX+24, y+29, x-cameraX+26, y+17);
+    }
+    if (t==2) {
+
+      if (gx+18 > x && gx +18 < x + 60   && gy > y && gy<=y + gvy) {
+        gy = y;
+        jump = 0;
+        gvy = 0;
+      }
+      fill(#5D3814); //platforms
+      rect(x-cameraX, y, 60, 15, 10);
+      beginShape();
+      vertex(x-cameraX+10, y+15);
+      vertex(x-cameraX+15, y+20);
+      vertex(x-cameraX+25, y+20);
+      vertex(x-cameraX+30, y+15);
+      endShape(CLOSE);
+      triangle(x-cameraX+16, y+20, x-cameraX+20, y+30, x-cameraX+24, y+20);
+      triangle(x-cameraX+28, y+15, x-cameraX+35, y+23, x-cameraX+40, y+15);
+      triangle(x-cameraX+40, y+15, x-cameraX+46, y+26, x-cameraX+52, y+15);
+    }
+
+    if (t==3) {
+      if (gx+18 > x && gx +18 < x + 80   && gy > y && gy<=y + gvy) {
+        gy = y;
+        jump = 0;
+        gvy = 0;
+      }
+      fill(#5D3814);
+      rect(x-cameraX, y, 80, 15, 10);
+      beginShape();
+      vertex(x-cameraX+10, y+15);
+      vertex(x-cameraX+14, y+20);
+      vertex(x-cameraX+30, y+20);
+      vertex(x-cameraX+35, y+15);
+      endShape(CLOSE);
+      triangle(x-cameraX+16, y+20, x-cameraX+24, y+30, x-cameraX+29, y+20);
+      triangle(x-cameraX+33, y+15, x-cameraX+40, y+23, x-cameraX+50, y+15);
+      triangle(x-cameraX+50, y+15, x-cameraX+56, y+26, x-cameraX+62, y+15);
+    }
+    noStroke();
+  }
+}
+
+
+
+
+class GRAY {
+  int x, y, w, t, go;
+  GRAY(int _x, int _y, int _w, int _t, int _go) {
+    x = _x;
+    y = _y;
+    w = _w;
+    t =_t;
+    go =_go;
+  }
+  void update() {
+    //  println(gx+5);
+
+    stroke(255);
+    if (t==1) {
+      if (gx+18 > x && gx +18 < x + 40   && gy > y && gy<=y + gvy) {
+        gy = y;
+        jump = 0;
+        gvy = 0;
+      }
+
+      ///////
+      fill(#7D817D);
+      noStroke();
+      beginShape();
+      vertex(x-cameraX, y);
+      vertex(x-cameraX+5, y+10);
+      vertex(x-cameraX+10, y+15);
+      vertex(x-cameraX+30, y+15);
+      vertex(x-cameraX+35, y+10);
+      vertex(x-cameraX+40, y);
+      endShape(CLOSE);
+    }
+    if (t==2) {
+
+      if (gx+18 > x && gx +18 < x + 60   && gy > y && gy<=y + gvy) {
+        gy = y;
+        jump = 0;
+        gvy = 0;
+      }
+
+      ///////
+      fill(#7D817D);
+      noStroke();
+      beginShape();
+      vertex(x-cameraX, y);
+      vertex(x-cameraX+5, y+10);
+      vertex(x-cameraX+12, y+20);
+      vertex(x-cameraX+50, y+20);
+      vertex(x-cameraX+57, y+10);
+      vertex(x-cameraX+60, y);
+      endShape(CLOSE);
+    }
+
+    if (t==3) {
+      if (gx+18 > x && gx +18 < x + 70   && gy > y && gy<=y + gvy) {
+        gy = y;
+        jump = 0;
+        gvy = 0;
+      }
+
+      fill(#7D817D);
+      noStroke();
+      beginShape();
+      vertex(x-cameraX-10, y);
+      vertex(x-cameraX, y+10);
+      vertex(x-cameraX+12, y+15);
+      vertex(x-cameraX+50, y+15);
+      vertex(x-cameraX+60, y+10);
+      vertex(x-cameraX+70, y);
+      endShape(CLOSE);
+    }
+    noStroke();
+  }
+}
+
+class PORTAL {
+  int x, y;
+  int nextmap; // 1 map 2 is map2...
+  PORTAL(int _x, int _y, int _nextmap) {
+    x=_x;
+    y=_y;
+    nextmap=_nextmap;
+  }
+  void update() {
+    for (int i = 0; i<20; i++) {
+      fill(#1EA6F7, 200-20*i);
+      rect(x-cameraX-25, y-10 -10*i, 50, 10, 5);
+    }
+    fill(128);
+    ellipse(x-cameraX, y, 50, 10);
+    if (dist(gx+18, gy, x, y)<10) {
+      pause=1; 
+      gx=x-17;
+    }
+
+    if (pause==3) {
+      cameraX=0;
+      page=nextmap;
+      gx=50;
+      if(page == 1){
+      gy=300;
+      }
+      if(page == 2){
+      gy=50;
+      }
+      pause=0;
+    }
+    /*
+    if (page==nextmap) { 
+     // cameraX=0;
+     if (page==2) {
+     mapWidth=1500;
+     gx=50;
+     gy=300;
+     }
+     if (page==1) {
+     gx=0;
+     gy=350;
+     }
+     }
+     */
+  }
+}
+
+void title() {
+  background(#000000);
+  fill(#1D52C1);
+  noStroke();
+  rect(170-25, 20, 10, 10); //S
+  rect(181-25, 20, 10, 10);
+  rect(192-25, 20, 10, 10);
+  rect(203-25, 20, 10, 10);
+  rect(159-25, 31, 10, 10);
+  rect(159-25, 42, 10, 10);
+  rect(170-25, 53, 10, 10);
+  rect(181-25, 53, 10, 10);
+  rect(192-25, 53, 10, 10);
+  rect(203-25, 64, 10, 10);
+  rect(203-25, 75, 10, 10);
+  rect(159-25, 86, 10, 10);
+  rect(170-25, 86, 10, 10);
+  rect(181-25, 86, 10, 10);
+  rect(192-25, 86, 10, 10);
+  rect(230-25, 86, 10, 10); //A
+  rect(230-25, 75, 10, 10);
+  rect(230-25, 64, 10, 10);
+  rect(230-25, 53, 10, 10);
+  rect(230-25, 42, 10, 10);
+  rect(230-25, 31, 10, 10);
+  rect(241-25, 53, 10, 10);
+  rect(252-25, 53, 10, 10);
+  rect(263-25, 53, 10, 10);
+  rect(274-25, 86, 10, 10); 
+  rect(274-25, 75, 10, 10);
+  rect(274-25, 64, 10, 10);
+  rect(274-25, 53, 10, 10);
+  rect(274-25, 42, 10, 10);
+  rect(274-25, 31, 10, 10);
+  rect(241-25, 20, 10, 10);
+  rect(252-25, 20, 10, 10);
+  rect(263-25, 20, 10, 10);
+  rect(301-25, 20, 10, 10);
+  rect(301-25, 31, 10, 10);
+  rect(301-25, 42, 10, 10);
+  rect(301-25, 53, 10, 10);
+  rect(301-25, 64, 10, 10);
+  rect(301-25, 75, 10, 10);
+  rect(301-25, 86, 10, 10);
+  rect(312-25, 31, 10, 10);
+  rect(323-25, 42, 10, 10);
+  rect(323-25, 53, 10, 10);
+  rect(334-25, 31, 10, 10);
+  rect(345-25, 31, 10, 10);
+  rect(345-25, 20, 10, 10);
+  rect(345-25, 42, 10, 10);
+  rect(345-25, 53, 10, 10);
+  rect(345-25, 64, 10, 10);
+  rect(345-25, 75, 10, 10);
+  rect(345-25, 86, 10, 10);
+  rect(372-25, 20, 10, 10); //U
+  rect(372-25, 31, 10, 10);
+  rect(372-25, 42, 10, 10);
+  rect(372-25, 53, 10, 10);
+  rect(372-25, 64, 10, 10);
+  rect(372-25, 75, 10, 10);
+  rect(416-25, 20, 10, 10);
+  rect(416-25, 31, 10, 10);
+  rect(416-25, 42, 10, 10);
+  rect(416-25, 53, 10, 10);
+  rect(416-25, 64, 10, 10);
+  rect(416-25, 75, 10, 10);
+  rect(383-25, 86, 10, 10);
+  rect(394-25, 86, 10, 10);
+  rect(405-25, 86, 10, 10);
+  rect(443-25, 31, 10, 10); //S
+  rect(443-25, 42, 10, 10);
+  rect(443-25, 86, 10, 10);
+  rect(454-25, 20, 10, 10);
+  rect(465-25, 20, 10, 10);
+  rect(476-25, 20, 10, 10);
+  rect(487-25, 20, 10, 10);
+  rect(454-25, 53, 10, 10);
+  rect(465-25, 53, 10, 10);
+  rect(476-25, 53, 10, 10);
+  rect(487-25, 64, 10, 10);
+  rect(487-25, 75, 10, 10);
+  rect(454-25, 86, 10, 10);
+  rect(465-25, 86, 10, 10);
+  rect(476-25, 86, 10, 10);
+  
+  image(one,230,130,48*3,48*3);
+  fill(255);
+  text("By Amelia and Henry", 200,320);
+  
+  fill(#000000);
+  stroke(#ffffff);
+  strokeWeight(2);
+  rect(10, 350, 620, 120, 10);
+  fill(#ffffff);
+  noStroke();
+  textSize(20);
+  text("You have crash landed on a distant planet! Run back to your", 20, 374);
+  text("ship while shooting and evading enemies. Use the arrow keys", 20, 398);
+  text("to move and Space Bar to shoot. Good Luck! Click to start", 20, 422);
+}
+
+void win() {
+
+  background(#000000);
+  fill(#000000);
+  stroke(#ffffff);
+  strokeWeight(2);
+  rect(10, 10, 620, 120, 10);
+  fill(#ffffff);
+  noStroke();
+  textSize(20);
+  text("You survived and made it back to your ship. Good Job!", 20, 34);
+  text("Don't Crash next time!", 20, 56);
+  fill(#ffffff, 100); //stars
+  noStroke();
+  ellipse(15, 200, 3, 3);
+  ellipse(25, 160, 2.5, 2.5);
+  ellipse(35, 158, 2.5, 2.5);
+  ellipse(50, 30, 2.5, 2.5);
+  ellipse(30, 400, 2.5, 2.5);
+  ellipse(100, 180, 2.5, 2.5);
+  ellipse(500, 475, 2.5, 2.5);
+  ellipse(635, 430, 2.5, 2.5);
+  ellipse(600, 100, 3, 3);
+  ellipse(480, 80, 3, 3);
+  ellipse(470, 60, 3, 3);
+  ellipse(350, 60, 3, 3);
+  ellipse(340, 360, 3, 3);
+  ellipse(320, 300, 3, 3);
+  ellipse(250, 220, 2.5, 2.5);
+  ellipse(200, 450, 3, 3);
+  fill(#ffffff, 50);
+  ellipse(20, 430, 4, 4);
+  ellipse(320, 240, 4, 4);
+  ellipse(330, 230, 4, 4);
+  ellipse(360, 280, 3, 3);
+  ellipse(100, 90, 3, 3);
+  ellipse(125, 80, 3, 3);
+  ellipse(620, 180, 3, 3);
+  ellipse(570, 160, 3, 3);
+  ellipse(550, 260, 4, 4);
+  ellipse(520, 380, 4, 4);
+  fill(#ffffff, 20);
+  ellipse(80, 360, 4, 4);
+  ellipse(50, 280, 4, 4);
+  ellipse(70, 20, 4, 4);
+  ellipse(110, 50, 4, 4);
+  ellipse(170, 250, 4, 4);
+  ellipse(190, 190, 4, 4);
+  ellipse(230, 90, 4, 4);
+  ellipse(300, 120, 4, 4);
+  ellipse(300, 420, 4, 4);
+  ellipse(400, 30, 4, 4);
+  ellipse(390, 460, 4, 4);
+  ellipse(430, 450, 4, 4);
+  ellipse(500, 10, 4, 4);
+  ellipse(550, 30, 4, 4);
+  ellipse(600, 410, 4, 4);
+  ellipse(625, 360, 4, 4);
+  ellipse(500, 320, 4, 4);
+  ellipse(450, 300, 4, 4);
+  ellipse(400, 180, 4, 4);
+  image(ship, 120, 280, 190*2, 160);  
+  image(one, 260, 205, 48*2, 48*2);
+  pointystars();
+  stars();
+}
+
+void pointystars() {
+  fill(#FFFFFF);
+  noStroke();
+  beginShape();
+  vertex(30, 175);
+  vertex(33, 185);
+  vertex(40, 188);
+  vertex(33, 191);
+  vertex(30, 201);
+  vertex(27, 191);
+  vertex(20, 188);
+  vertex(27, 185);
+  endShape(CLOSE);
+  beginShape();
+  vertex(170, 405);
+  vertex(173, 415);
+  vertex(180, 418);
+  vertex(173, 421);
+  vertex(170, 431);
+  vertex(167, 421);
+  vertex(160, 418);
+  vertex(167, 415);
+  endShape(CLOSE);
+  beginShape();
+  vertex(300-70, 215);
+  vertex(303-70, 225);
+  vertex(310-70, 228);
+  vertex(303-70, 231);
+  vertex(300-70, 241);
+  vertex(297-70, 231);
+  vertex(290-70, 228);
+  vertex(297-70, 225);
+  endShape(CLOSE);
+  beginShape();
+  vertex(405, 425);
+  vertex(408, 435);
+  vertex(415, 438);
+  vertex(408, 441);
+  vertex(405, 451);
+  vertex(402, 441);
+  vertex(395, 438);
+  vertex(402, 435);
+  endShape(CLOSE);
+  beginShape();
+  vertex(475, 165);
+  vertex(478, 175);
+  vertex(485, 178);
+  vertex(478, 181);
+  vertex(475, 191);
+  vertex(472, 181);
+  vertex(465, 178);
+  vertex(472, 175);
+  endShape(CLOSE);
+  beginShape();
+  vertex(575, 265);
+  vertex(578, 275);
+  vertex(585, 278);
+  vertex(578, 281);
+  vertex(575, 291);
+  vertex(572, 281);
+  vertex(565, 278);
+  vertex(572, 275);
+  endShape(CLOSE);
+}
+
+int FadeX2 = 255;
+void stars() {
+  FadeX2=FadeX2-10;
+  if (FadeX2<=0) {
+    FadeX2 = 255;
+  }
+  fill(#ffffff, FadeX2);
+  ellipse(60, 120, 3, 3);
+  ellipse(140, 420, 4, 4);
+  ellipse(340, 20, 3, 3);
+  ellipse(400, 220, 4, 4);
+  ellipse(600, 310, 4, 4);
+  ellipse(220, 40, 2, 2);
+  ellipse(260, 320, 2, 2);
+  ellipse(420, 400, 2, 2);
+}
+
+int coins= 000;
+
+class COIN {
+  float ix, iy; 
+  float it = 255;
+
+
+
+  COIN(float _ix, float _iy)
+  { //grid x, grid y, ub, db, lb, rb, skin
+    ix = _ix;
+    iy = _iy;
+  }
+
+  void update() {
+
+
+    // fill(#FF0000);
+    //rect(x,y,50,50);
+    //println("hi");
+
+
+    if (dist(ix, iy, gx+17, gy-17)  < 30) { // item hits you
+
+      if (it>0)
+        coins+=(int) random(8)+1;
+
+      it = 0;
+    }
+
+    fill(#B8B9B8, it);
+    stroke(#6F6F6F, it);
+    strokeWeight(1);
+    ellipse(ix-cameraX, iy, 15, 15);
+    fill(#C2C4C2, it);
+    stroke(#6F6F6F, it);
+    ellipse(ix-cameraX, iy, 10, 10);
+    //  println(coins);
+  }
+}
+
+
+void drawcoin() {
+  fill(0);
+  textSize(30);
+  text("Coins: "+coins, 470, 440);
+}
+
+
+class boo {
+  ///float gx, gy, gvy;
+  float box, boy, bw, types;
+  float bovx;
+  float bovy;
+  float bv;
+  float bt;
+  color c;
+  int bdir =-1;
+  boolean draw = true;
+
+  boo(int _x, int _y, int _w, int _types) {
+    box=_x;
+    boy=_y;
+    bw=_w;
+    types = _types;
+  }
+  void update() {
+    // draw=true;
+    if (dist(box, boy, gx+17, gy-17) < 400 && draw == true) {
+
+      if (types == 1) {
+        bv = 4;
+      }
+      if (types == 2) {
+        bv = 6;
+      }
+      if (types == 3) {
+        bv = 7;
+      }
+
+
+      if (box > gx+10 ) {
+        bt=atan2(gy-17-boy, gx+17-box);
+        bovx=bv*cos(bt);
+        bovy=bv*sin(bt);
+        box+=bovx;
+        boy+=bovy;
+      }
+      if ( box < gx-10 ) {
+        bt=atan2(gy-17-boy, gx+17-box);
+        bovx=bv*cos(bt);
+        bovy=bv*sin(bt);
+        box+=bovx;
+        boy+=bovy;
+      }
+      if ( bdir == -1 && box < gx-10) {
+        bdir*=-1;
+      }
+      if ( bdir == 1 && box > gx+10) {
+        bdir*=-1;
+      }
+      if (dist(box, boy, gx+17, gy-17)<8) {   // character gets hit
+        //    gy=750+400;
+        box=box+(int) random(250)+175;
+        boy=boy-75;
+     //   ouch();
+        bgo=0;
+      }
+      /*
+    fill(255);
+       ellipse(box, boy, bw, bw);
+       fill(0);
+       ellipse(box+10*bdir, boy-3, 10, 10);
+       ellipse(box+5*bdir, boy-3, 10, 10);
+       fill(255);
+       ellipse(box+10*bdir, boy-3, 5, 5);
+       ellipse(box+5*bdir, boy-3, 5, 5);
+       */
+    }
+
+    if ( dist(box, boy, bx, by) < 25 && bgo != 0) {
+      draw = false;
+    }
+
+    if (draw == true) {
+
+      if (types == 1) {
+        fill(#EADD61);
+        stroke(#000000);
+        strokeWeight(1.5);
+        ellipse(box-cameraX, boy, 23, 25);
+        fill(#ffffff);
+        noStroke();
+        ellipse(box-cameraX, boy-4, 8, 12);
+        fill(#ffffff);
+        stroke(#000000);
+        strokeWeight(1);
+        triangle(box-cameraX-5, boy+5, box-cameraX, boy+10, box-cameraX+5, boy+5);
+        fill(#000000);
+        noStroke();
+        ellipse(box-cameraX, boy-4, 6, 6);
+        stroke(#000000);
+        strokeWeight(1.5);
+        line(box-cameraX-8, boy+5, box-cameraX+7, boy+5);
+      }
+
+      if (types == 2) {
+        fill(#B6BCB4);
+        stroke(#000000);
+        strokeWeight(2);
+        triangle(box-cameraX-7, boy-11, box-cameraX, boy-23, box-cameraX+7, boy-11);
+        triangle(box-cameraX+8, boy-11, box-cameraX+18, boy-14, box-cameraX+10, boy+5);
+        triangle(box-cameraX-8, boy-11, box-cameraX-18, boy-14, box-cameraX-10, boy+5);
+        fill(#75D163);
+        strokeWeight(2);
+        ellipse(box-cameraX, boy, 30, 25);
+        fill(#000000);
+        noStroke();
+        ellipse(box-cameraX-5, boy-5, 6, 8);
+        ellipse(box-cameraX+5, boy-5, 6, 8);
+        stroke(2);
+        line(box-cameraX-12, boy+7, box-cameraX-8, boy+4);
+        line(box-cameraX-8, boy+4, box-cameraX+8, boy+4);
+        line(box-cameraX+8, boy+4, box-cameraX+12, boy+7);
+      }
+
+      if (types == 3) {
+        fill(#B6BCB4);
+        stroke(#000000);
+        strokeWeight(2);
+        triangle(box-cameraX-7, boy-11, box-cameraX, boy-23, box-cameraX+7, boy-11);
+        triangle(box-cameraX+8, boy-11, box-cameraX+18, boy-14, box-cameraX+10, boy+5);
+        triangle(box-cameraX-8, boy-11, box-cameraX-18, boy-14, box-cameraX-10, boy+5);
+        triangle(box-cameraX-7, boy+11, box-cameraX, boy+23, box-cameraX+7, boy+11);
+        triangle(box-cameraX+8, boy+11, box-cameraX+18, boy+14, box-cameraX+10, boy-5);
+        triangle(box-cameraX-8, boy+11, box-cameraX-18, boy+14, box-cameraX-10, boy-5);
+        fill(#D3361E);
+        stroke(#000000);
+        strokeWeight(2);
+        ellipse(box-cameraX, boy, 25, 25);
+        strokeWeight(3);
+        line(box-cameraX-7, boy-5, box-cameraX-3, boy-2);
+        line(box-cameraX+7, boy-5, box-cameraX+3, boy-2);
+        fill(#000000);
+        noStroke();
+        ellipse(box-cameraX, boy+5, 6, 6);
+      }
+    }
+  }
+}
+
+
+
+
+int enemy1x = 200;
+int enemy1y = 1100;
+
+
+void enemy() {
+  fill(#ff0000);
+  noStroke();
+  ellipse(enemy1x-cameraX, enemy1y, 20, 20);
+  fill(#000000);
+  noStroke();
+  ellipse(enemy1x-4-cameraX, enemy1y-4, 6, 6);
+  ellipse(enemy1x+4-cameraX, enemy1y-4, 6, 6);
+  ellipse(enemy1x-cameraX, enemy1y+3, 10, 4);
+}
+
